@@ -4,5 +4,7 @@ idk
 run:
 
 ```~$ make```
+
 then
+
 ```~$ ./main```
