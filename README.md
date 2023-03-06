@@ -1,7 +1,7 @@
 # gameIDK
 idk
 
-run:
+how to run:
 
 ```~$ make```
 
