@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "string": "cpp",
+        "new": "cpp"
+    },
+    "terminal.integrated.fontSize": 13
+}
