@@ -65,7 +65,7 @@ Maze::Maze(int width, int height, Screen& scr, Vector2f pos, bool ShowAnimation)
         }
         for (vector<int>::iterator it = frontiers.begin(); it < frontiers.end(); ++it) {if (world[*it] == 1) {temp.push_back(*it);}}
         frontiers = temp;
-        if (ShowAnimation) {Sleep(5);}
+        if (ShowAnimation) {Sleep(3);}
     }
     temp.clear();
     for (int row = 0; row < height; ++row) {if (getCell(width-1, row) == 0) {temp.push_back(row);}}
