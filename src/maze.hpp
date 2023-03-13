@@ -2,10 +2,12 @@
 
 #include "helpers.hpp"
 #include "screen.hpp"
+#include "fileRead.hpp"
 
 class Maze {
     public:
         Maze(int width, int height, Screen& scr, Vector2f pos, bool ShowAnimation);
+        void display(Screen& scr, Vector2f& pos, PPMFile& texture, Vector2i* startPos, Vector2i* endPos, int cellWidth, int cellHeight, Vector2i& startCell, Vector2i& endCell);
         void display(Screen& scr, Vector2f& pos);
         int getWidth();
         int getCell(int x, int y);

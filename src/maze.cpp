@@ -21,7 +21,7 @@ bool Maze::allowed(int posX, int posY) {
 }
 
 Maze::Maze(int width, int height, Screen& scr, Vector2f pos, bool ShowAnimation) {
-    srand(time(NULL));
+    srand(69);
     this->width = width;
     this->height = height;
     int startPos = width*(rand()%(height/2))*2;
@@ -70,6 +70,8 @@ Maze::Maze(int width, int height, Screen& scr, Vector2f pos, bool ShowAnimation)
     temp.clear();
     for (int row = 0; row < height; ++row) {if (getCell(width-1, row) == 0) {temp.push_back(row);}}
     endingPoint = Vector2i(width-1, temp[rand() % temp.size()]);
+    world[startPos] = 2;
+    world[endingPoint.x + endingPoint.y*width] = 3;
 } 
 
 /*
@@ -81,6 +83,18 @@ While the list of frontier cells is not empty:
 Pick a random frontier cell from the list of frontier cells.
 Let neighbors(frontierCell) = All cells in distance 2 in state Passage. Pick a random neighbor and connect the frontier cell with the neighbor by setting the cell in-between to state Passage. Compute the frontier cells of the chosen frontier cell and add them to the frontier list. Remove the chosen frontier cell from the list of frontier cells.
 */
+
+void Maze::display(Screen& scr, Vector2f& pos, PPMFile& texture, Vector2i* startPos, Vector2i* endPos, int cellWidth, int cellHeigh, Vector2i& startCell, Vector2i& endCell) {
+    for (int row = startCell.y; row < endCell.y; ++row) {
+        for (int column = startCell.x; column < endCell.x; ++column) {
+            int cellID = getCell(column, row);
+            Vector2i start = startPos[cellID];
+            Vector2i end = endPos[cellID];
+            Vector2f cellPos = pos + Vector2f((column-startCell.x)*cellWidth, (row-startCell.y)*cellHeigh);
+            scr.renderImg(texture, start, end, cellPos);
+        }
+    }
+}
 
 void Maze::display(Screen& scr, Vector2f& pos) {
     for (int row = 0; row < height; ++row) {

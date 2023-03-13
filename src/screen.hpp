@@ -25,6 +25,7 @@ class Screen {
         void drawLine(Vector2f& start, Vector2f& end, const Vector3i& color);
         void drawCircle(Vector2f& center, float radius, const Vector3i& color);
         void renderImg(PPMFile& src, Vector2i& start, Vector2i& end, Vector2f& pos);
+        void renderImg(Vector3i* src, Vector2i& start, Vector2i& end, Vector2f& pos, int width);
         void display();
         void clear();
         void moveUp();
