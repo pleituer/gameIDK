@@ -1,3 +1,3 @@
-obj/main.o: src/main.cpp src/input.hpp src/platform.hpp \
- src/inputConstants.hpp src/inputWindows.hpp src/screen.hpp \
- src/helpers.hpp src/fileRead.hpp src/helpersConsts.hpp src/maze.hpp
+obj/main.o: src/main.cpp src/input.h src/platform.h src/inputConstants.h \
+ src/inputWindows.h src/screen.h src/helpers.h src/fileRead.h \
+ src/helpersConsts.h src/maze.h src/player.h

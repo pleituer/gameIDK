@@ -1,2 +1,2 @@
-obj/inputWindows.o: src/inputWindows.cpp src/platform.hpp \
- src/inputWindows.hpp src/inputConstants.hpp
+obj/inputWindows.o: src/inputWindows.cpp src/platform.h \
+ src/inputWindows.h src/inputConstants.h

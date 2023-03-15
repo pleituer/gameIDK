@@ -2,7 +2,7 @@
 
 #include <cstring>
 
-#include "helpers.hpp"
+#include "helpers.h"
 
 class PPMFile {
     public:

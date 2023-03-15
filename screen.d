@@ -1,2 +1,1 @@
-obj/screen.o: src/screen.cpp src/screen.hpp src/helpers.hpp \
- src/fileRead.hpp
+obj/screen.o: src/screen.cpp src/screen.h src/helpers.h src/fileRead.h

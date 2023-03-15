@@ -1,6 +1,6 @@
-#include "platform.hpp"
-#include "inputLinuxMac.hpp"
-#include "inputConstants.hpp"
+#include "platform.h"
+#include "inputLinuxMac.h"
+#include "inputConstants.h"
 
 #if OSType == 1 || OSType == 2
     #include <terminos.h>
@@ -53,13 +53,13 @@
             key = _getch();
             switch (key) {
             case K_A:
-                return upArrow;
+                return K_UP;
             case K_B:
-                return downArrow;
+                return K_DOWN;
             case K_D:
-                return leftArrow;
+                return K_LEFT;
             case K_C:
-                return rightArrow;
+                return K_RIGHT;
             }
         } 
         if (0 < key && key < 128) {return key;}

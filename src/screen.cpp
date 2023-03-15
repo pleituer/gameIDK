@@ -3,9 +3,9 @@
 #include <string>
 #include <cmath>
 
-#include "screen.hpp"
-#include "helpers.hpp"
-#include "fileRead.hpp"
+#include "screen.h"
+#include "helpers.h"
+#include "fileRead.h"
 
 using namespace std;
 
@@ -181,10 +181,10 @@ void Screen::renderImg(PPMFile& src, Vector2i& start, Vector2i& end, Vector2f& p
     }
 }
 
-void Screen::renderImg(Vector3i* src, Vector2i& start, Vector2i& end, Vector2f& pos, int width) {
+void Screen::renderImg(Vector3i* src, Vector2i& start, Vector2i& end, Vector2f& pos, int imgWidth) {
     for (int row = 0; row < end.y - start.y; ++row) {
         for (int column = 0; column < end.x - start.x; ++column) {
-            setPixel(pos.x + column, pos.y + row, src[(row + start.y)*width + column + start.x]);
+            setPixel(pos.x + column, pos.y + row, src[(row + start.y)*imgWidth + column + start.x]);
         }
     }
 }

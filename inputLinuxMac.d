@@ -1,2 +1,2 @@
-obj/inputLinuxMac.o: src/inputLinuxMac.cpp src/platform.hpp \
- src/inputLinuxMac.hpp src/inputConstants.hpp
+obj/inputLinuxMac.o: src/inputLinuxMac.cpp src/platform.h \
+ src/inputLinuxMac.h src/inputConstants.h

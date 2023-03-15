@@ -1,4 +1,4 @@
-#include "helpers.hpp"
+#include "helpers.h"
 
 Vector2i::Vector2i() {
     x = 0;

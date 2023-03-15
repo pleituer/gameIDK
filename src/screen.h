@@ -1,7 +1,7 @@
 #pragma once
 
-#include "helpers.hpp"
-#include "fileRead.hpp"
+#include "helpers.h"
+#include "fileRead.h"
 
 class Screen {
     public:

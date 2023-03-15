@@ -1,1 +1,1 @@
-obj/helpers.o: src/helpers.cpp src/helpers.hpp
+obj/helpers.o: src/helpers.cpp src/helpers.h

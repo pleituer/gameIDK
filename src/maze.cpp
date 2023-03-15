@@ -2,10 +2,10 @@
 #include <vector>
 #include <iostream>
 #include <time.h>
-#include <Windows.h>
 
-#include "maze.hpp"
-#include "screen.hpp"
+#include "maze.h"
+#include "screen.h"
+#include "sleep.h"
 
 const Vector3i& white = Vector3i(255, 255, 255);
 const Vector3i& black = Vector3i(0, 0, 0);
@@ -24,6 +24,7 @@ Maze::Maze(int width, int height, Screen& scr, Vector2f pos, bool ShowAnimation)
     srand(69);
     this->width = width;
     this->height = height;
+    cellSize = 5;
     int startPos = width*(rand()%(height/2))*2;
     world = new int[width*height];
     vector<int> frontiers;
@@ -65,13 +66,23 @@ Maze::Maze(int width, int height, Screen& scr, Vector2f pos, bool ShowAnimation)
         }
         for (vector<int>::iterator it = frontiers.begin(); it < frontiers.end(); ++it) {if (world[*it] == 1) {temp.push_back(*it);}}
         frontiers = temp;
-        if (ShowAnimation) {Sleep(3);}
+        if (ShowAnimation) {sleeps(0.03f);}
     }
     temp.clear();
     for (int row = 0; row < height; ++row) {if (getCell(width-1, row) == 0) {temp.push_back(row);}}
     endingPoint = Vector2i(width-1, temp[rand() % temp.size()]);
     world[startPos] = 2;
     world[endingPoint.x + endingPoint.y*width] = 3;
+    for (int i = 0; i < height*width; ++i) {
+        int x = i%width, y = i/width;
+        if (world[i] == 1) {
+            world[i] = 4;
+            if (allowed(x + 1, y) && (world[i+1] == 1 || (getCell(x+1, y) > 3 && getCell(x+1, y) < 20))) {world[i] += 1;}
+            if (allowed(x, y + 1) && (world[i+width] == 1 || (getCell(x, y+1) > 3 && getCell(x, y+1) < 20))) {world[i] += 2;}
+            if (allowed(x - 1, y) && (world[i-1] == 1 || (getCell(x-1, y) > 3 && getCell(x-1, y) < 20))) {world[i] += 4;}
+            if (allowed(x, y - 1) && (world[i-width] == 1 || (getCell(x, y-1) > 3 && getCell(x, y-1) < 20))) {world[i] += 8;}
+        }
+    }
 } 
 
 /*
@@ -84,14 +95,16 @@ Pick a random frontier cell from the list of frontier cells.
 Let neighbors(frontierCell) = All cells in distance 2 in state Passage. Pick a random neighbor and connect the frontier cell with the neighbor by setting the cell in-between to state Passage. Compute the frontier cells of the chosen frontier cell and add them to the frontier list. Remove the chosen frontier cell from the list of frontier cells.
 */
 
-void Maze::display(Screen& scr, Vector2f& pos, PPMFile& texture, Vector2i* startPos, Vector2i* endPos, int cellWidth, int cellHeigh, Vector2i& startCell, Vector2i& endCell) {
+void Maze::display(Screen& scr, Vector2f& pos, PPMFile& texture, Vector2i* startPos, Vector2i* endPos, Vector2i& startCell, Vector2i& endCell) {
     for (int row = startCell.y; row < endCell.y; ++row) {
         for (int column = startCell.x; column < endCell.x; ++column) {
-            int cellID = getCell(column, row);
-            Vector2i start = startPos[cellID];
-            Vector2i end = endPos[cellID];
-            Vector2f cellPos = pos + Vector2f((column-startCell.x)*cellWidth, (row-startCell.y)*cellHeigh);
-            scr.renderImg(texture, start, end, cellPos);
+            if (-1 < column && column < width && -1 < row && row < height) {
+                int cellID = getCell(column, row);
+                Vector2i start = startPos[cellID];
+                Vector2i end = endPos[cellID];
+                Vector2f cellPos = pos + Vector2f((column-startCell.x)*cellSize, (row-startCell.y)*cellSize);
+                scr.renderImg(texture, start, end, cellPos);
+            }
         }
     }
 }
@@ -105,6 +118,22 @@ void Maze::display(Screen& scr, Vector2f& pos) {
     }
 }
 
+void Maze::setMarker(Vector2f& pos) {if (world[int(pos.x/cellSize) + int(pos.y/cellSize)*width] == 0) {world[int(pos.x/cellSize) + int(pos.y/cellSize)*width] = 1;}}
+
+void Maze::rmMarker(Vector2f& pos) {if (world[int(pos.x/cellSize) + int(pos.y/cellSize)*width] == 1) {world[int(pos.x/cellSize) + int(pos.y/cellSize)*width] = 0;}}
+
 int Maze::getWidth() {return width;}
 
+int Maze::getHeight() {return height;}
+
 int Maze::getCell(int x, int y) {return world[x + y*width];}
+
+bool Maze::isNotWall(Vector2f& pos) {
+    int cell = getCell(int(pos.x/cellSize), int(pos.y/cellSize));
+    return !(cell > 3 && cell < 20);
+}
+
+bool Maze::isNotWall(const Vector2f& pos) {
+    int cell = getCell(int(pos.x/cellSize), int(pos.y/cellSize));
+    return !(cell > 3 && cell < 20);
+}

@@ -1,6 +1,9 @@
 #pragma once
 
-#include "platform.hpp"
+#include "platform.h"
+
+#if !defined(InputConstantConst)
+#define InputConstantConst 1
 
 const int errorKey = -69420;
 const int windowsSpecialKey = 0xe0;
@@ -8,10 +11,10 @@ const int unixSpecialKey1 = 0x1b;
 const int unixSpecialKey2 = 0x5b;
 const int nullKey = 0x00;
 
-const int upArrow = 0x80;
-const int downArrow = 0x81;
-const int leftArrow = 0x82;
-const int rightArrow = 0x83;
+const int K_UP = 0x80;
+const int K_DOWN = 0x81;
+const int K_LEFT = 0x82;
+const int K_RIGHT = 0x83;
 
 const int K_CtrlA = 0x01;
 const int K_CtrlB = 0x02;
@@ -140,3 +143,5 @@ const int K_Pipe  = 0x7c; // |
 const int K_RCBrk = 0x7d; // }
 const int K_Tide  = 0x7e; // ~
 const int K_Del   = 0x7f;
+
+#endif

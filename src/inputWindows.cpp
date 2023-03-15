@@ -1,6 +1,6 @@
-#include "platform.hpp"
-#include "inputWindows.hpp"
-#include "inputConstants.hpp"
+#include "platform.h"
+#include "inputWindows.h"
+#include "inputConstants.h"
 
 #if OSType == 0
     #include <conio.h>
@@ -17,13 +17,13 @@
                 key = _getch();
                 switch (key) {
                 case K_H:
-                    return upArrow;
+                    return K_UP;
                 case K_P:
-                    return downArrow;
+                    return K_DOWN;
                 case K_K:
-                    return leftArrow;
+                    return K_LEFT;
                 case K_M:
-                    return rightArrow;
+                    return K_RIGHT;
                 }
             }
             if (0 < key && key < 128) {return key;}

@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <Windows.h>
 
-#include "fileRead.hpp"
-#include "helpers.hpp"
+#include "fileRead.h"
+#include "helpers.h"
 
 using namespace std;
 
