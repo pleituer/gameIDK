@@ -14,13 +14,13 @@
     int fps = 60;
     float deltime = 1/fps;
     struct timeval tv;
-    tv.tv_usec = 0;
-    FD_ZERO(&readfds);
-    FD_ZERO(&master);
-    FD_SET(0, &readfds);
-    FD_SET(0, &master);
 
     void Init() {
+        tv.tv_usec = 0;
+        FD_ZERO(&readfds);
+        FD_ZERO(&master);
+        FD_SET(0, &readfds);
+        FD_SET(0, &master);
         tcgetattr(0, &old); /* grab old terminal i/o settings */
         new1 = old; /* make new settings same as old settings */
         new1.c_lflag &= ~ICANON; /* disable buffered i/o */
