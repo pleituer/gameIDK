@@ -17,7 +17,7 @@ int main() {
     PPMFile walltex = PPMFile(wallText);
     const char* iconsfile = "userIcon.ppm";
     PPMFile icons = PPMFile(iconsfile);
-    Screen scr = Screen(42, 32);
+    Screen scr = Screen(82, 62);
     scr.Init();
     Vector2f start = Vector2f(1.0f, 1.0f);
     Maze mz = Maze(31, 31, scr, start, false);

@@ -19,4 +19,5 @@ class Player {
         float halfScrheight;
         float halfSize;
         Vector2f* hitbox;
+        Vector2i fov;
 };
