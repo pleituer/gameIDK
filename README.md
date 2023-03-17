@@ -8,3 +8,5 @@ how to run:
 then
 
 ```~$ ./main```
+most importantly 
+have funnnn!
