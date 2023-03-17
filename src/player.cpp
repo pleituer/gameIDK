@@ -62,11 +62,11 @@ void Player::display(Screen& scr, Maze& mz, PPMFile& icon, PPMFile& texture, Vec
     Vector2f renderPos;
     Vector2i startCell;
     if (pos.x < halfScrwidth) {renderPos.x = pos.x;startCell.x = 0;}
-    else if (mz.getWidth()*mz.cellSize - pos.x < halfScrwidth) {renderPos.x = 2*halfScrwidth - mz.getWidth()*mz.cellSize + pos.x;startCell.x = mz.getWidth() - 8;}
+    else if (mz.getWidth()*mz.cellSize - pos.x < halfScrwidth) {renderPos.x = 2*halfScrwidth - mz.getWidth()*mz.cellSize + pos.x;startCell.x = mz.getWidth() - fov.x;}
     else {renderPos.x = halfScrwidth;startCell.x = int(pos.x)/mz.cellSize - fov.x/2;mazeStart.x -= int(pos.x)%mz.cellSize;}
     renderPos.x -= float(size)/2;
     if (pos.y < halfScrheight) {renderPos.y = pos.y;startCell.y = 0;}
-    else if (mz.getHeight()*mz.cellSize - pos.y < halfScrheight) {renderPos.y = 2*halfScrheight - mz.getHeight()*mz.cellSize + pos.y;startCell.y = mz.getHeight() - 6;}
+    else if (mz.getHeight()*mz.cellSize - pos.y < halfScrheight) {renderPos.y = 2*halfScrheight - mz.getHeight()*mz.cellSize + pos.y;startCell.y = mz.getHeight() - fov.y;}
     else {renderPos.y = halfScrheight;startCell.y = int(pos.y)/mz.cellSize - fov.y/2;mazeStart.y -= int(pos.y)%mz.cellSize;}
     renderPos.y -= float(size)/2;
     Vector2i endCell = startCell + Vector2i(fov.x+1, fov.y+1);
