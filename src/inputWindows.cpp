@@ -1,8 +1,7 @@
-#include "platform.h"
 #include "inputWindows.h"
 #include "inputConstants.h"
 
-#if OSType == 0
+#if _WIN32
     #include <conio.h>
 
     int getChar() {

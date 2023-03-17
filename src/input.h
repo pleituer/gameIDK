@@ -3,8 +3,8 @@
 #include "platform.h"
 #include "inputConstants.h"
 
-#if OSType == 0
+#if _WIN32
     #include "inputWindows.h"
-#elif OSType == 1 || OSType == 2
+#elif __APPLE__ || __linux__
     #include "inputLinuxMac.h"
 #endif

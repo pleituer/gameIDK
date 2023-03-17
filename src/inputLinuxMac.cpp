@@ -1,8 +1,7 @@
-#include "platform.h"
 #include "inputLinuxMac.h"
 #include "inputConstants.h"
 
-#if OSType == 1 || OSType == 2
+#if __APPLE__ || __linux__
     #include <terminos.h>
     #include <unistd.h>
     #include <sys/types.h>

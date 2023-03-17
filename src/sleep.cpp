@@ -1,9 +1,7 @@
-#include "platform.h"
-
-#if OSType == 0
+#if O_WIN32
 #include <windows.h>
 void sleeps(float time) {Sleep(time);}
-#elif OSType == 1 || OSType == 2
+#elif __APPLE__ || __linux__
 #include <unistd.h>
 void sleeps(float time) {sleep(time);}
 #else

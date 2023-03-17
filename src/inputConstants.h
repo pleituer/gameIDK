@@ -1,7 +1,5 @@
 #pragma once
 
-#include "platform.h"
-
 #if !defined(InputConstantConst)
 #define InputConstantConst 1
 
