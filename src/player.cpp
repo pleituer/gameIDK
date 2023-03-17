@@ -17,6 +17,7 @@ Player::Player(Maze& mz, Screen& scr) {
     halfScrwidth = float(scr.getWidth())/2;
     halfScrheight = float(scr.getHeight())/2;
     halfSize = size/2;
+    hitbox = new Vector2f[4] {Vector2f(halfSize, halfSize), Vector2f(-halfSize, halfSize), Vector2f(halfSize, -halfSize), Vector2f(-halfSize, -halfSize)};
 }
 
 void Player::update(int key, Maze& mz) {
@@ -51,7 +52,7 @@ void Player::update(int key, Maze& mz) {
         mz.rmMarker(pos);
         break;
     }
-    if (mz.isNotWall(curPos + Vector2f(halfSize, halfSize)) && mz.isNotWall(curPos + Vector2f(-halfSize, halfSize)) && mz.isNotWall(curPos + Vector2f(halfSize, -halfSize)) && mz.isNotWall(curPos - Vector2f(halfSize, halfSize)) && curPos.x - float(size)/2 > 0 && curPos.x + float(size)/2 < mz.getWidth()*mz.cellSize && curPos.y - float(size)/2 > 0 && curPos.y + float(size)/2 < mz.getHeight()*mz.cellSize) {pos = curPos;}
+    if (mz.isNotWall(curPos + hitbox[0]) && mz.isNotWall(curPos + hitbox[1]) && mz.isNotWall(curPos + hitbox[2]) && mz.isNotWall(curPos + hitbox[3]) && curPos.x - float(size)/2 > 0 && curPos.x + float(size)/2 < mz.getWidth()*mz.cellSize && curPos.y - float(size)/2 > 0 && curPos.y + float(size)/2 < mz.getHeight()*mz.cellSize) {pos = curPos;}
 }
 
 void Player::display(Screen& scr, Maze& mz, PPMFile& icon, PPMFile& texture, Vector2i* startPos, Vector2i* endPos, Vector2f mazeStart) {

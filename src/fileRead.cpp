@@ -2,7 +2,6 @@
 #include <fstream>
 #include <cstring>
 #include <cstddef>
-#include <Windows.h>
 
 #include "fileRead.h"
 #include "helpers.h"

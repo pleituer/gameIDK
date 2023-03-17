@@ -18,4 +18,5 @@ class Player {
         float halfScrwidth;
         float halfScrheight;
         float halfSize;
+        Vector2f* hitbox;
 };
