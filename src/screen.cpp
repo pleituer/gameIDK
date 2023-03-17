@@ -14,7 +14,7 @@ Screen::Screen(int p_width, int p_height) {
     width = p_width;
     height = p_height;
     screen = new Vector3i[width * height];
-    clear();
+    clears();
 }
 
 void Screen::Init() {cout << "\x1b[?25l";}
@@ -203,7 +203,7 @@ void Screen::display() {
 
 void Screen::clear() {
     for (int i = 0; i < width*height; ++i) {screen[i] = Vector3i(0,0,0);}
-    clear();
+    clears();
 }
 
 void Screen::moveUp() {

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "platform.h"
 #include "inputConstants.h"
 
 #if _WIN32

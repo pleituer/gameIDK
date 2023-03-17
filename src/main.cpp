@@ -13,7 +13,6 @@ using namespace std;
 
 int main() {
     Init();
-    cout << OSType << '\n';
     const char* wallText = "WallTexture.ppm";
     PPMFile walltex = PPMFile(wallText);
     const char* iconsfile = "userIcon.ppm";
