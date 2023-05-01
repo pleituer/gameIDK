@@ -66,7 +66,7 @@
         return errorKey;
     }
 
-    void SetScreenSize(int& width, int& height); {
+    void SetScreenSize(int& width, int& height) {
         struct winsize w;
         ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
         width = w.ws_row/2;
