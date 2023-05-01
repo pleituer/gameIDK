@@ -3,6 +3,7 @@
 
 #if _WIN32
     #include <conio.h>
+    #include <windows.h>
 
     int getChar() {
         if (kbhit()) {
@@ -34,4 +35,11 @@
     void Init() {}
 
     void Finish() {}
+
+    void SetScreenSize(int& width, int& height) {
+        CONSOLE_SCREEN_BUFFER_INFO csbi;    
+        GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+        width = (csbi.srWindow.Right - csbi.srWindow.Left + 1)/2;
+        height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+    }
 #endif

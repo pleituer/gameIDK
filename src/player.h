@@ -10,6 +10,7 @@ class Player {
         Player(Maze& mz, Screen& scr);
         void update(int key, Maze& mz);
         void display(Screen& scr, Maze& mz, PPMFile& icon, PPMFile& texture, Vector2i* startPos, Vector2i* endPos, Vector2f mazeStart);
+        bool solvedOrNot(Maze& mz);
         Vector2f pos;
     private:
         int size;

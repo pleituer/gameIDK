@@ -24,18 +24,17 @@ PPMFile::PPMFile(const char* filename) {
             width = width*10 + int(data[ptr]) - 48;
             ptr++;
         }
-        ptr++;
+        while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
         while (data[ptr] >= '0' && data[ptr] <= '9') {
             height = height*10 + data[ptr] - 48;
             ptr++;
         }
-        ptr++;
+        while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
         int maxPix = 0;
         while (data[ptr] >= '0' && data[ptr] <= '9') {
             maxPix = maxPix*10 + data[ptr] - 48;
             ptr++;
         }
-        ptr++;
         cout << ptr << '\n';
         int pixIndex = 0;
         float trimmer = 255.0f/maxPix;
@@ -62,19 +61,19 @@ PPMFile::PPMFile(const char* filename) {
                     r = r*10 + data[ptr] - 48;
                     ptr++;
                 }
-                ptr++;
+                while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
                 int g = 0;
                 while (data[ptr] >= '0' && data[ptr] <= '9') {
                     g = g*10 + data[ptr] - 48;
                     ptr++;
                 }
-                ptr++;
+                while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
                 int b = 0;
                 while (data[ptr] >= '0' && data[ptr] <= '9') {
                     b = b*10 + data[ptr] - 48;
                     ptr++;
                 }
-                ptr++;
+                while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
                 cout << r << ' ' << g << ' ' << b << '\n';
                 Img[pixIndex] = Vector3i(
                     int(trimmer*r), 
@@ -85,8 +84,12 @@ PPMFile::PPMFile(const char* filename) {
                 pixIndex++;
             }
         }
-    } else {cout << "Error: Unale to open " << filename << '\n';}
+        delete[] data;
+        readable = true;
+    } else {cout << "Error: Unale to open " << filename << '\n';readable=false;}
 }
+
+PPMFile::PPMFile() {}
 
 int PPMFile::getType() {return PPMType;}
 

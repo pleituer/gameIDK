@@ -6,6 +6,7 @@
     #include <unistd.h>
     #include <sys/types.h>
     #include <sys/time.h>
+    #include <sys/ioctl.h>
     #include <stdio.h>
 
     // Thank you to Ben Vogit in https://stackoverflow.com/questions/6698161/getting-raw-input-from-console-using-c-or-c
@@ -63,6 +64,13 @@
         } 
         if (0 < key && key < 128) {return key;}
         return errorKey;
+    }
+
+    void SetScreenSize(int& width, int& height); {
+        struct winsize w;
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+        width = w.ws_row/2;
+        height = w.ws_col;
     }
 
 #endif

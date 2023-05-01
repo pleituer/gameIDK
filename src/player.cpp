@@ -73,3 +73,7 @@ void Player::display(Screen& scr, Maze& mz, PPMFile& icon, PPMFile& texture, Vec
     mz.display(scr, mazeStart, texture, startPos, endPos, startCell, endCell);
     scr.renderImg(icon, start, end, renderPos);
 }
+
+bool Player::solvedOrNot(Maze& mz) {
+    return (int(pos.x/mz.cellSize) == mz.endingPoint.x && int(pos.y/mz.cellSize) == mz.endingPoint.y);
+}
