@@ -55,7 +55,10 @@ void MazeRun(int& status, Maze& mz, Player& player, int ch, Screen& scr) {
 }
 
 int main() {
+
     Init();
+
+    // Ensures that the user uses a compatible playing console window
     FoolProofPlan();
     Screen scr = Screen(82, 62);
     scr.Init();
@@ -64,15 +67,20 @@ int main() {
     clock_t fps = 0;
     int status = 3;
     Vector2f start = Vector2f(1.0f, 1.0f);
+
     Maze mz = Maze(11, 11, scr, start, false);
     Player player = Player(mz, scr);
     MazeInit(0, mz, player, scr);
+
     for (int i = 0; i < 20; ++i) {texEnd[i] = Vector2i(mz.cellSize, mz.cellSize) + texStart[i];}
+
     cout << "Hi"<< endl;
+
     while (ch != K_q && ch != K_Q) {
         current_ticks = clock();
         cout << "fps: " << fps << endl;
 
+        // Dynamicly display the correct screen during the game
         switch (status) {
             /*
                 0: main menu
