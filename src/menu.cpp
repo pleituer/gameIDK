@@ -100,7 +100,6 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     int max = 3;
     int min = 1;
     int x = rand() % (max - min + 1) + min ;
-    cout << x << endl;
 
     if ( x == 1) {fillbackground(Background,scr);}
     else if (x == 2){fillbackground(Background1,scr);}
@@ -118,7 +117,6 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
 
     scr.renderImg(Title,start,endpoint_title,pos_title);
     //scr.setBoarders(BL);
-    scr.display();
 
     button select[3] = {playButton, helpButton, searchButton};
     select[currentSelect].highlight(scr);
