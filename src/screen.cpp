@@ -77,6 +77,17 @@ void Screen::drawVerticalLine(float x, float startY, float endY, const Vector3i&
     else  {for (float y = startY; y > endY; --y) {setPixel(x, y, color);}}
 }
 
+void Screen::drawExclusiveRectangle(Vector2i start, Vector2i end, const Vector3i &color) {
+    drawExclusiveRectangle(start.x, end.x, start.y, end.y, color);
+}
+
+void Screen::drawExclusiveRectangle(int startX, int endX, int startY, int endY, const Vector3i& color) {
+    drawHorizontalLine(startX - 1, endX + 1, startY - 1, color);
+    drawHorizontalLine(startX - 1, endX + 1, endY, color);
+    drawVerticalLine(startX - 1, startY, endY, color);
+    drawVerticalLine(endX, startY, endY, color);
+}
+
 void Screen::drawLineNaive(Vector2f& start, Vector2f& end, const Vector3i& color, float precision) {
     if (start != end) {
         float delX = end.x - start.x;

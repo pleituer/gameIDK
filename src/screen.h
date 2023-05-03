@@ -21,6 +21,8 @@ class Screen {
         void setBoarders(const Vector3i& color);
         void drawHorizontalLine(float startX, float endX, float y, const Vector3i& color);
         void drawVerticalLine(float x, float startY, float endY, const Vector3i& color);
+        void drawExclusiveRectangle(Vector2i start, Vector2i end, const Vector3i &color);
+        void drawExclusiveRectangle(int startX, int endX, int startY, int endY, const Vector3i& color);
         void drawLineNaive(Vector2f& start, Vector2f& end, const Vector3i& color, float precision);
         void drawLine(Vector2f& start, Vector2f& end, const Vector3i& color);
         void drawCircle(Vector2f& center, float radius, const Vector3i& color);

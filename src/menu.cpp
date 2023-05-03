@@ -2,10 +2,10 @@
 #include <string>
 #include <stdlib.h>
 #include <time.h>
+
+#include "input.h"
 #include "screen.h"
 #include "menu.h"
-
-
 
 using namespace std;
 const Vector3i& w = Vector3i(255, 255, 255);
@@ -14,6 +14,9 @@ const Vector3i& r = Vector3i(255, 0, 0);
 const Vector3i& y = Vector3i(255, 255, 0);
 const Vector3i& g = Vector3i(0, 255, 0);
 const Vector3i& BL = Vector3i(0, 0, 255);
+
+Vector3i border = Vector3i(255, 0, 0);
+
 //read ppm file
 const char* bplay = "img/playbutton2.ppm";
 PPMFile bPlay = PPMFile(bplay);
@@ -30,9 +33,33 @@ PPMFile Background1 = PPMFile(background1);
 const char* background2 = "img/background2.ppm";
 PPMFile Background2 = PPMFile(background2);
 
+button::button(Vector2i s, Vector2i e, int v, Vector3i& c) {
+    start = s;
+    end = e;
+    value = v;
+    selectedColor = c;
+}
 
+button::button(Vector2f s, Vector2i e, int v, Vector3i& c) {
+    start = Vector2i(s.x, s.y);
+    end = Vector2i(s.x + e.x, s.y + e.y);
+    value = v;
+    selectedColor = c;
+}
 
-void PlayMenu(Screen& scr) {
+button::button(int sx, int ex, int sy, int ey, int v, Vector3i& c) {
+    start = Vector2i(sx, sy);
+    end = Vector2i(ex, ey);
+    value = v;
+    selectedColor = c;
+}
+
+void button::highlight(Screen& scr) const {
+    scr.drawExclusiveRectangle(start, end, selectedColor);
+}
+
+void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
+
     //position of image 
     Vector2f pos_play;
     Vector2f pos_search;
@@ -69,20 +96,40 @@ void PlayMenu(Screen& scr) {
     
     // put the button and title
     scr.renderImg(bPlay, start, endpoint_play, pos_play);
+    button playButton(pos_play, endpoint_play, 1, border);
+
     scr.renderImg(bHelp,start,endpoint_help,pos_help);
+    button helpButton(pos_help, endpoint_help, 2, border);
+
     scr.renderImg(bSearch,start,endpoint_search,pos_search);
+    button searchButton(pos_search, endpoint_search, 1, border);
+
     scr.renderImg(Title,start,endpoint_title,pos_title);
     //scr.setBoarders(BL);
     scr.display();
-    string k;
-    cin >> k;
-}
 
-int SelectMenu(Screen& scr) {
-
-    //position of menu
-    Vector2f stageButton = Vector2f(3, 4);
-
-
-    return 0;
+    button select[3] = {playButton, helpButton, searchButton};
+    select[currentSelect].highlight(scr);
+    switch (key) {
+        case K_d:
+        case K_D:
+        case K_RIGHT:
+        case K_w:
+        case K_W:
+        case K_UP:
+            currentSelect += 1;
+            break;
+        case K_s:
+        case K_S:
+        case K_DOWN:
+        case K_a:
+        case K_A:
+        case K_LEFT:
+            currentSelect -= 1;
+            break;
+        case K_Space:
+            status = select[currentSelect].value;
+            break;
+    }
+    currentSelect %= 3;
 }

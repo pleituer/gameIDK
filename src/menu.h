@@ -4,6 +4,20 @@
 
 #include "screen.h"
 
-void PlayMenu(Screen& scr);
+class button {
+public:
+    Vector2i start;
+    Vector2i end;
+    int value;
+    Vector3i selectedColor;
+    button(Vector2i s, Vector2i e, int v, Vector3i& c);
+    button(Vector2f s, Vector2i e, int v, Vector3i& c);
+    button(int sx, int ex, int sy, int ey, int v, Vector3i& c);
+    void highlight(Screen& scr) const;
+};
+
+
+
+void PlayMenu(int& status, Screen& scr, int key, int& currentSelect);
 
 #endif

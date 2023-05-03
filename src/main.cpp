@@ -8,6 +8,7 @@
 #include "helpersConsts.h"
 #include "maze.h"
 #include "player.h"
+#include "menu.h"
 
 using namespace std;
 
@@ -68,7 +69,10 @@ int main() {
     int ch = getChar();
     clock_t current_ticks, delta_ticks;
     clock_t fps = 0;
-    int status = 3;
+
+    // To be implemented
+    int status = 0;
+    int currentSelect = 0;
     Vector2f start = Vector2f(1.0f, 1.0f);
 
     Maze mz = Maze(11, 11, scr, start, false);
@@ -93,6 +97,7 @@ int main() {
                 4: congrats screen after solving maze
             */
             case 0:
+                PlayMenu(status, scr, ch, currentSelect);
                 break;
             case 1:
                 break;
