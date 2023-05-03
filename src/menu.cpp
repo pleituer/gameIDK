@@ -174,7 +174,7 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     currentSelect %= 3;
 }
 
-void SelectMenu(int& status, long& seed, Screen& scr, int key) {
+void SelectMenu(int& status, int& seed, Screen& scr, int key) {
 
     string current = to_string(seed);
 
@@ -198,7 +198,7 @@ void SelectMenu(int& status, long& seed, Screen& scr, int key) {
 
     pos_U = Vector2f(16, 30);
     PPMFile tempChar;
-    for (int i = 0; i < current.size(); i++) {
+    for (int i = 0; i < current.size() && seed != 0; i++) {
         int temp = current[i] - 48;
         switch (temp) {
             case 0:
@@ -269,10 +269,10 @@ void SelectMenu(int& status, long& seed, Screen& scr, int key) {
             current.append("9");
             break;
         case K_Space:
-            seed = stol(current);
+            seed = stoi(current);
             status = M_maze;
-            break;
+            return;
     }
-    seed = stol(current);
+    seed = stoi(current);
 
 }

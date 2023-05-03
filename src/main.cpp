@@ -45,7 +45,6 @@ void MazeInit(int levelID, Maze& mz, Player& player, Screen& scr) {
     height = 2*height + 1;
     if (width < 21) {width = 21;}
     if (height < 15) {height = 15;}
-    cout << width << ' ' << height << endl;
     mz.~Maze();
     new(&mz) Maze(width, height, scr, start, false);
     player.~Player();
@@ -74,12 +73,11 @@ int main() {
     // To be implemented
     int status = 0;
     int currentSelect = 0;
-    long seed = 0;
+    int seed = 0;
     Vector2f start = Vector2f(1.0f, 1.0f);
 
     Maze mz = Maze(11, 11, scr, start, false);
     Player player = Player(mz, scr);
-    MazeInit(0, mz, player, scr);
 
     for (int i = 0; i < 20; ++i) {texEnd[i] = Vector2i(mz.cellSize, mz.cellSize) + texStart[i];}
 
@@ -103,6 +101,7 @@ int main() {
                 break;
             case M_SelectMenu:
                 SelectMenu(status, seed, scr, ch);
+                if (status != M_SelectMenu) { MazeInit(seed, mz, player, scr); }
                 break;
             case M_helpMenu:
                 break;
