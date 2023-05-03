@@ -30,6 +30,21 @@ PPMFile Background1 = PPMFile(background1);
 const char* background2 = "img/background2.ppm";
 PPMFile Background2 = PPMFile(background2);
 
+void fillbackground(PPMFile backgroud,Screen& scr)
+{   
+    Vector2i start = Vector2i(0,0);
+    Vector2i endpoint = Vector2i(10,10);
+    Vector2f pos;
+    for (int i = 0; i < 8; i++ )
+    {
+        for (int j = 0; j < 6; j ++)
+        {
+            pos = Vector2f(i*10,j*10);
+            scr.renderImg(backgroud, start, endpoint, pos);
+        }
+    }
+
+}
 
 
 void PlayMenu(Screen& scr) {
@@ -38,23 +53,21 @@ void PlayMenu(Screen& scr) {
     Vector2f pos_search;
     Vector2f pos_help;
     Vector2f pos_title;
-    Vector2f pos_backgroud;
+ 
 
     Vector2i start = Vector2i(0,0);
     Vector2i endpoint_play = Vector2i(30,7);
     Vector2i endpoint_search = Vector2i(30,7);
     Vector2i endpoint_help = Vector2i(30,7);
     Vector2i endpoint_title = Vector2i(46,15);
-    Vector2i endpoint_background = Vector2i(80,60);
-    Vector2i endpoint_background1 = Vector2i(80,60);
-    Vector2i endpoint_background2 = Vector2i(80,60);
+
 
     
     pos_play = Vector2f(25,27);
     pos_search = Vector2f(25,37);
     pos_help = Vector2f(25,47);
     pos_title = Vector2f(17,2);
-    pos_backgroud = Vector2f(0,0);
+
 
     // randomly form background
     srand((unsigned)time(NULL));
@@ -63,9 +76,9 @@ void PlayMenu(Screen& scr) {
     int x = rand() % (max - min + 1) + min ;
     cout << x << endl;
 
-    if ( x == 1) {scr.renderImg(Background,start,endpoint_background,pos_backgroud);}
-    else if (x == 2){scr.renderImg(Background1,start,endpoint_background1,pos_backgroud);}
-    else {scr.renderImg(Background2,start,endpoint_background2,pos_backgroud);}
+    if ( x == 1) {fillbackground(Background,scr);}
+    else if (x == 2){fillbackground(Background1,scr);}
+    else {fillbackground(Background2,scr);}
     
     // put the button and title
     scr.renderImg(bPlay, start, endpoint_play, pos_play);
