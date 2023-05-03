@@ -9,6 +9,7 @@
 #include "maze.h"
 #include "player.h"
 #include "menu.h"
+#include "statusConstants.h"
 
 using namespace std;
 
@@ -73,6 +74,7 @@ int main() {
     // To be implemented
     int status = 0;
     int currentSelect = 0;
+    int seed = 0;
     Vector2f start = Vector2f(1.0f, 1.0f);
 
     Maze mz = Maze(11, 11, scr, start, false);
@@ -96,17 +98,18 @@ int main() {
                 3: maze
                 4: congrats screen after solving maze
             */
-            case 0:
+            case M_MainMenu:
                 PlayMenu(status, scr, ch, currentSelect);
                 break;
-            case 1:
+            case M_SelectMenu:
+                SelectMenu(status, seed, scr, ch);
                 break;
-            case 2:
+            case M_helpMenu:
                 break;
-            case 3:
+            case M_maze:
                 MazeRun(status, mz, player, ch, scr);
                 break;
-            case 4:
+            case M_congratz:
                 break;
         }
 

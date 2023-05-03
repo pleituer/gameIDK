@@ -19,8 +19,8 @@ public:
     void highlight(Screen& scr) const;
 };
 
-
-
 void PlayMenu(int& status, Screen& scr, int key, int& currentSelect);
+
+void SelectMenu(int& status, int& seed, Screen& scr, int key);
 
 #endif
