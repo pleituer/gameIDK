@@ -4,7 +4,7 @@
 #include <time.h>
 #include "screen.h"
 #include "menu.h"
-
+#include "input.h"
 
 
 using namespace std;
@@ -14,6 +14,8 @@ const Vector3i& r = Vector3i(255, 0, 0);
 const Vector3i& y = Vector3i(255, 255, 0);
 const Vector3i& g = Vector3i(0, 255, 0);
 const Vector3i& BL = Vector3i(0, 0, 255);
+
+Vector3i border = Vector3i(255, 0, 0);
 //read ppm file
 const char* bplay = "img/playbutton2.ppm";
 PPMFile bPlay = PPMFile(bplay);
