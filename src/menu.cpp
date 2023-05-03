@@ -15,26 +15,24 @@ const Vector3i& y = Vector3i(255, 255, 0);
 const Vector3i& g = Vector3i(0, 255, 0);
 const Vector3i& BL = Vector3i(0, 0, 255);
 //read ppm file
-const char* bplay = "img/playbotton2.ppm";
+const char* bplay = "img/playbutton2.ppm";
 PPMFile bPlay = PPMFile(bplay);
-const char* bhelp = "img/helpbotton.ppm";
+const char* bhelp = "img/helpbutton.ppm";
 PPMFile bHelp = PPMFile(bhelp);
-const char* bsea ="img/searchbotton.ppm";
+const char* bsea ="img/searchbutton.ppm";
 PPMFile bSearch = PPMFile(bsea);
 const char* title = "img/titleofgame.ppm";
 PPMFile Title = PPMFile(title);
-const char* background = "img/backgroud.ppm";
+const char* background = "img/background.ppm";
 PPMFile Background = PPMFile(background);
-const char* background1 = "img/backgroud1.ppm";
+const char* background1 = "img/background1.ppm";
 PPMFile Background1 = PPMFile(background1);
-const char* background2 = "img/backgroud2.ppm";
+const char* background2 = "img/background2.ppm";
 PPMFile Background2 = PPMFile(background2);
 
 
 
-void Playmenu(Screen& scr)
-
-{  
+void PlayMenu(Screen& scr) {
     //position of image 
     Vector2f pos_play;
     Vector2f pos_search;
@@ -57,6 +55,7 @@ void Playmenu(Screen& scr)
     pos_help = Vector2f(25,47);
     pos_title = Vector2f(17,2);
     pos_backgroud = Vector2f(0,0);
+
     // randomly form background
     srand((unsigned)time(NULL));
     int max = 3;
@@ -68,7 +67,7 @@ void Playmenu(Screen& scr)
     else if (x == 2){scr.renderImg(Background1,start,endpoint_background1,pos_backgroud);}
     else {scr.renderImg(Background2,start,endpoint_background2,pos_backgroud);}
     
-    // put the botton and title
+    // put the button and title
     scr.renderImg(bPlay, start, endpoint_play, pos_play);
     scr.renderImg(bHelp,start,endpoint_help,pos_help);
     scr.renderImg(bSearch,start,endpoint_search,pos_search);
@@ -77,4 +76,13 @@ void Playmenu(Screen& scr)
     scr.display();
     string k;
     cin >> k;
+}
+
+int SelectMenu(Screen& scr) {
+
+    //position of menu
+    Vector2f stageButton = Vector2f(3, 4);
+
+
+    return 0;
 }
