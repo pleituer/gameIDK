@@ -21,7 +21,6 @@ bool Maze::allowed(int posX, int posY) {
 }
 
 Maze::Maze(int width, int height, Screen& scr, Vector2f pos, bool ShowAnimation) {
-    srand(69);
     this->width = width;
     this->height = height;
     cellSize = 5;

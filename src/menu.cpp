@@ -5,6 +5,7 @@
 #include "screen.h"
 #include "menu.h"
 #include "input.h"
+#include "statusConstants.h"
 
 
 using namespace std;
@@ -16,7 +17,9 @@ const Vector3i& g = Vector3i(0, 255, 0);
 const Vector3i& BL = Vector3i(0, 0, 255);
 
 Vector3i border = Vector3i(255, 0, 0);
-//read ppm file
+
+// read ppm file
+// for main menu
 const char* bplay = "img/playbutton2.ppm";
 PPMFile bPlay = PPMFile(bplay);
 const char* bhelp = "img/helpbutton.ppm";
@@ -31,6 +34,30 @@ const char* background1 = "img/background1.ppm";
 PPMFile Background1 = PPMFile(background1);
 const char* background2 = "img/background2.ppm";
 PPMFile Background2 = PPMFile(background2);
+
+// for select menu
+const char* u_0 = "img/unit_0.ppm";
+PPMFile U_0 = PPMFile(u_0);
+const char* u_1 = "img/unit_1.ppm";
+PPMFile U_1 = PPMFile(u_1);
+const char* u_2 = "img/unit_2.ppm";
+PPMFile U_2 = PPMFile(u_2);
+const char* u_3 = "img/unit_3.ppm";
+PPMFile U_3 = PPMFile(u_3);
+const char* u_4 = "img/unit_4.ppm";
+PPMFile U_4 = PPMFile(u_4);
+const char* u_5 = "img/unit_5.ppm";
+PPMFile U_5 = PPMFile(u_5);
+const char* u_6 = "img/unit_6.ppm";
+PPMFile U_6 = PPMFile(u_6);
+const char* u_7 = "img/unit_7.ppm";
+PPMFile U_7 = PPMFile(u_7);
+const char* u_8 = "img/unit_8.ppm";
+PPMFile U_8 = PPMFile(u_8);
+const char* u_9 = "img/unit_9.ppm";
+PPMFile U_9 = PPMFile(u_9);
+const char* enterleveltoplay = "img/EnterLeveltoPlay.ppm";
+PPMFile EnterLeveltoPlay = PPMFile(enterleveltoplay);
 
 void fillbackground(PPMFile backgroud,Screen& scr)
 {
@@ -47,6 +74,7 @@ void fillbackground(PPMFile backgroud,Screen& scr)
     }
 
 }
+
 button::button(Vector2i s, Vector2i e, int v, Vector3i& c) {
     start = s;
     end = e;
@@ -72,9 +100,10 @@ void button::highlight(Screen& scr) const {
     scr.drawExclusiveRectangle(start, end, selectedColor);
 }
 
+// Displays the main menu and prompt the user to select
 void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
 
-    //position of image 
+    //position of image
     Vector2f pos_play;
     Vector2f pos_search;
     Vector2f pos_help;
@@ -88,7 +117,7 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     Vector2i endpoint_title = Vector2i(46,15);
 
 
-    
+
     pos_play = Vector2f(25,27);
     pos_search = Vector2f(25,37);
     pos_help = Vector2f(25,47);
@@ -104,16 +133,16 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     if ( x == 1) {fillbackground(Background,scr);}
     else if (x == 2){fillbackground(Background1,scr);}
     else {fillbackground(Background2,scr);}
-    
+
     // put the button and title
     scr.renderImg(bPlay, start, endpoint_play, pos_play);
-    button playButton(pos_play, endpoint_play, 1, border);
+    button playButton(pos_play, endpoint_play, M_SelectMenu, border);
 
     scr.renderImg(bHelp,start,endpoint_help,pos_help);
-    button helpButton(pos_help, endpoint_help, 2, border);
+    button helpButton(pos_help, endpoint_help, M_helpMenu, border);
 
     scr.renderImg(bSearch,start,endpoint_search,pos_search);
-    button searchButton(pos_search, endpoint_search, 1, border);
+    button searchButton(pos_search, endpoint_search,M_SelectMenu, border);
 
     scr.renderImg(Title,start,endpoint_title,pos_title);
     //scr.setBoarders(BL);
@@ -139,7 +168,111 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
             break;
         case K_Space:
             status = select[currentSelect].value;
-            break;
+            currentSelect = 0;
+            return;
     }
     currentSelect %= 3;
+}
+
+void SelectMenu(int& status, int& seed, Screen& scr, int key) {
+
+    string current = to_string(seed);
+
+    Vector2f pos_U;
+    Vector2f pos_EnterLeveltoPlay;
+
+    Vector2i start = Vector2i(0, 0);
+    Vector2i endpoint_U = Vector2i(7, 12);
+    Vector2i endpoint_EnterLeveltoPlay = Vector2i(58, 17);
+
+    pos_EnterLeveltoPlay = Vector2f(11, 10);
+
+    // put the button and title
+    scr.renderImg(EnterLeveltoPlay, start, endpoint_EnterLeveltoPlay, pos_EnterLeveltoPlay);
+
+    if (current.length() == 6) {
+        seed = stoi(current);
+        status = M_maze;
+        return;
+    }
+
+    pos_U = Vector2f(16, 30);
+    PPMFile tempChar;
+    for (int i = 0; i < current.size() && seed != 0; i++) {
+        int temp = current[i] - 48;
+        switch (temp) {
+            case 0:
+                tempChar = U_0;
+                break;
+            case 1:
+                tempChar = U_1;
+                break;
+            case 2:
+                tempChar = U_2;
+                break;
+            case 3:
+                tempChar = U_3;
+                break;
+            case 4:
+                tempChar = U_4;
+                break;
+            case 5:
+                tempChar = U_5;
+                break;
+            case 6:
+                tempChar = U_6;
+                break;
+            case 7:
+                tempChar = U_7;
+                break;
+            case 8:
+                tempChar = U_8;
+                break;
+            case 9:
+                tempChar = U_9;
+                break;
+        }
+
+    scr.renderImg(tempChar, start, endpoint_U, pos_U);
+    pos_U.x += 8;
+    }
+
+    switch (key) {
+        case K_0:
+            current.append("0");
+            break;
+        case K_1:
+            current.append("1");
+            break;
+        case K_2:
+            current.append("2");
+            break;
+        case K_3:
+            current.append("3");
+            break;
+        case K_4:
+            current.append("4");
+            break;
+        case K_5:
+            current.append("5");
+            break;
+        case K_6:
+            current.append("6");
+            break;
+        case K_7:
+            current.append("7");
+            break;
+        case K_8:
+            current.append("8");
+            break;
+        case K_9:
+            current.append("9");
+            break;
+        case K_Space:
+            seed = stoi(current);
+            status = M_maze;
+            return;
+    }
+    seed = stoi(current);
+
 }
