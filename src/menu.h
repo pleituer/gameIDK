@@ -4,6 +4,9 @@
 
 #include "screen.h"
 
+void fillbackground(PPMFile backgroud,Screen& scr);
+void PlayMenu(Screen& scr);
+int SelectMenu(Screen& scr);
 class button {
 public:
     Vector2i start;
