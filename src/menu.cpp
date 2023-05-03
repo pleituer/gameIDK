@@ -103,7 +103,7 @@ void button::highlight(Screen& scr) const {
 // Displays the main menu and prompt the user to select
 void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
 
-    //position of image 
+    //position of image
     Vector2f pos_play;
     Vector2f pos_search;
     Vector2f pos_help;
@@ -117,7 +117,7 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     Vector2i endpoint_title = Vector2i(46,15);
 
 
-    
+
     pos_play = Vector2f(25,27);
     pos_search = Vector2f(25,37);
     pos_help = Vector2f(25,47);
@@ -133,7 +133,7 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     if ( x == 1) {fillbackground(Background,scr);}
     else if (x == 2){fillbackground(Background1,scr);}
     else {fillbackground(Background2,scr);}
-    
+
     // put the button and title
     scr.renderImg(bPlay, start, endpoint_play, pos_play);
     button playButton(pos_play, endpoint_play, M_SelectMenu, border);
@@ -174,32 +174,33 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     currentSelect %= 3;
 }
 
-void SelectMenu(int& status, int& seed, Screen& scr, int key) {
+void SelectMenu(int& status, long& seed, Screen& scr, int key) {
 
     string current = to_string(seed);
 
     Vector2f pos_U;
     Vector2f pos_EnterLeveltoPlay;
 
-    Vector2i start = Vector2i(0,0);
-    Vector2i endpoint_U = Vector2i(7,12);
-    Vector2i endpoint_EnterLeveltoPlay = Vector2i(58,17);
+    Vector2i start = Vector2i(0, 0);
+    Vector2i endpoint_U = Vector2i(7, 12);
+    Vector2i endpoint_EnterLeveltoPlay = Vector2i(58, 17);
 
     pos_EnterLeveltoPlay = Vector2f(11, 10);
 
     // put the button and title
     scr.renderImg(EnterLeveltoPlay, start, endpoint_EnterLeveltoPlay, pos_EnterLeveltoPlay);
 
-//    if (current.length() == 6) {
-//        seed = stoi(current);
-//        status = M_maze;
-//        return;
-//    }
+    if (current.length() == 6) {
+        seed = stoi(current);
+        status = M_maze;
+        return;
+    }
 
-    pos_U = Vector2f(16, 20);
+    pos_U = Vector2f(16, 30);
     PPMFile tempChar;
     for (int i = 0; i < current.size(); i++) {
-        switch ( (int) current[i] ) {
+        int temp = current[i] - 48;
+        switch (temp) {
             case 0:
                 tempChar = U_0;
                 break;
@@ -232,46 +233,46 @@ void SelectMenu(int& status, int& seed, Screen& scr, int key) {
                 break;
         }
 
-        scr.renderImg(tempChar, start, endpoint_U, pos_U);
-        pos_U.x += 8;
-
-        switch (key) {
-            case K_0:
-                current.append(to_string(0));
-                break;
-            case K_1:
-                current.append(to_string(1));
-                break;
-            case K_2:
-                current.append(to_string(2));
-                break;
-            case K_3:
-                current.append(to_string(3));
-                break;
-            case K_4:
-                current.append(to_string(4));
-                break;
-            case K_5:
-                current.append(to_string(5));
-                break;
-            case K_6:
-                current.append(to_string(6));
-                break;
-            case K_7:
-                current.append(to_string(7));
-                break;
-            case K_8:
-                current.append(to_string(8));
-                break;
-            case K_9:
-                current.append(to_string(9));
-                break;
-            case K_Space:
-                seed = stoi(current);
-                status = M_maze;
-                return;
-        }
-        seed = stoi(current);
+    scr.renderImg(tempChar, start, endpoint_U, pos_U);
+    pos_U.x += 8;
     }
+
+    switch (key) {
+        case K_0:
+            current.append("0");
+            break;
+        case K_1:
+            current.append("1");
+            break;
+        case K_2:
+            current.append("2");
+            break;
+        case K_3:
+            current.append("3");
+            break;
+        case K_4:
+            current.append("4");
+            break;
+        case K_5:
+            current.append("5");
+            break;
+        case K_6:
+            current.append("6");
+            break;
+        case K_7:
+            current.append("7");
+            break;
+        case K_8:
+            current.append("8");
+            break;
+        case K_9:
+            current.append("9");
+            break;
+        case K_Space:
+            seed = stol(current);
+            status = M_maze;
+            break;
+    }
+    seed = stol(current);
 
 }

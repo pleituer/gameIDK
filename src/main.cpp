@@ -74,7 +74,7 @@ int main() {
     // To be implemented
     int status = 0;
     int currentSelect = 0;
-    int seed = 0;
+    long seed = 0;
     Vector2f start = Vector2f(1.0f, 1.0f);
 
     Maze mz = Maze(11, 11, scr, start, false);

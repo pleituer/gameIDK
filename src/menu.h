@@ -21,6 +21,6 @@ public:
 
 void PlayMenu(int& status, Screen& scr, int key, int& currentSelect);
 
-void SelectMenu(int& status, int& seed, Screen& scr, int key);
+void SelectMenu(int& status, long& seed, Screen& scr, int key);
 
 #endif

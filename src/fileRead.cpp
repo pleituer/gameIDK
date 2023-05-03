@@ -12,35 +12,44 @@ PPMFile::PPMFile(const char* filename) {
     ifstream file;
     file.open(filename, ios::in | ios::binary | ios::ate);
     if (file.is_open()) {
+        cout << "processing " << filename << endl;
         file.seekg(0, ios::end);
         size = file.tellg();
         file.seekg(0, ios::beg);
+        cout << "ppm size " << size << endl;
+
         char* data = new char[size];
         file.read(data, size);
         file.close();
+
         int ptr = 2;
         while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
         while (data[ptr] >= '0' && data[ptr] <= '9') {
             width = width*10 + int(data[ptr]) - 48;
             ptr++;
         }
+
         while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
         while (data[ptr] >= '0' && data[ptr] <= '9') {
             height = height*10 + data[ptr] - 48;
             ptr++;
         }
+
         while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
         int maxPix = 0;
         while (data[ptr] >= '0' && data[ptr] <= '9') {
             maxPix = maxPix*10 + data[ptr] - 48;
             ptr++;
         }
+
         cout << ptr << '\n';
         int pixIndex = 0;
         float trimmer = 255.0f/maxPix;
         Img = new Vector3i[height*width];
         cout << width << ' ' << height << ' ' << maxPix << ' ' << trimmer << '\n';
+
         if (data[0] == 'P' && data[1] == '6') {
+
             PPMType = 6;
             while(ptr < int(size) && pixIndex < height*width) {
                 Img[pixIndex] = Vector3i(
@@ -51,9 +60,12 @@ PPMFile::PPMFile(const char* filename) {
                 ptr += 3;
                 pixIndex++;
             }
+
         } else if (data[0] == 'P' && data[1] == '3') {
+
             PPMType = 3;
             while(ptr < int(size) && pixIndex < height*width) {
+
                 while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
                 cout << ptr << '\n';
                 int r = 0;
@@ -61,19 +73,22 @@ PPMFile::PPMFile(const char* filename) {
                     r = r*10 + data[ptr] - 48;
                     ptr++;
                 }
+
                 while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
                 int g = 0;
                 while (data[ptr] >= '0' && data[ptr] <= '9') {
                     g = g*10 + data[ptr] - 48;
                     ptr++;
                 }
+
                 while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
                 int b = 0;
                 while (data[ptr] >= '0' && data[ptr] <= '9') {
                     b = b*10 + data[ptr] - 48;
                     ptr++;
                 }
-                while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
+
+//                while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
                 cout << r << ' ' << g << ' ' << b << '\n';
                 Img[pixIndex] = Vector3i(
                     int(trimmer*r), 
@@ -83,7 +98,9 @@ PPMFile::PPMFile(const char* filename) {
                 cout<<"debug "<<height*width - pixIndex<<' '<<int(size)<<endl;
                 pixIndex++;
             }
+
         }
+        cout << "loading complete" << endl;
         delete[] data;
         readable = true;
     } else {cout << "Error: Unale to open " << filename << '\n';readable=false;}
