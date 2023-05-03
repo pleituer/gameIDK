@@ -28,7 +28,9 @@ void FoolProofPlan() {
     cout << "Please scroll UP" << endl;
     int width = 0;
     int height = 0;
-    while (width >= 85 || height >= 65) {SetScreenSize(width, height);}
+    while (width < 85 || height < 65) {
+        SetScreenSize(width, height);
+    }
     FoolproofPlan.Done();
 }
 

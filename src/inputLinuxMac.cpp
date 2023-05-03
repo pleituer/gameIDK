@@ -69,8 +69,9 @@
     void SetScreenSize(int& width, int& height) {
         struct winsize w;
         ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-        width = w.ws_row/2;
-        height = w.ws_col;
+
+        height = w.ws_row;
+        width = w.ws_col / 2;
     }
 
 #endif
