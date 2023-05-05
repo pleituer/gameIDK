@@ -174,24 +174,7 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     currentSelect %= 3;
 }
 
-void SelectMenu(int& status, int& seed, Screen& scr, int key) {
-
-    string current = to_string(seed);
-    while (current.size() < 6) {current = "0" + current;}
-
-    Vector2f pos_U;
-    Vector2f pos_EnterLeveltoPlay;
-
-    Vector2i start = Vector2i(0, 0);
-    Vector2i endpoint_U = Vector2i(7, 12);
-    Vector2i endpoint_EnterLeveltoPlay = Vector2i(58, 17);
-
-    pos_EnterLeveltoPlay = Vector2f(11, 10);
-
-    // put the button and title
-    scr.renderImg(EnterLeveltoPlay, start, endpoint_EnterLeveltoPlay, pos_EnterLeveltoPlay);
-
-    pos_U = Vector2f(13, 34);
+void RenderNumber(string current, Vector2f& pos_U, Vector2i& start, Vector2i& endpoint_U, Screen& scr) {
     PPMFile tempChar;
     for (int i = 0; i < current.size(); i++) {
         int temp = current[i] - 48;
@@ -231,6 +214,27 @@ void SelectMenu(int& status, int& seed, Screen& scr, int key) {
     scr.renderImg(tempChar, start, endpoint_U, pos_U);
     pos_U.x += 9;
     }
+}
+
+void SelectMenu(int& status, int& seed, Screen& scr, int key) {
+
+    string current = to_string(seed);
+    while (current.size() < 6) {current = "0" + current;}
+
+    Vector2f pos_U;
+    Vector2f pos_EnterLeveltoPlay;
+
+    Vector2i start = Vector2i(0, 0);
+    Vector2i endpoint_U = Vector2i(7, 12);
+    Vector2i endpoint_EnterLeveltoPlay = Vector2i(58, 17);
+
+    pos_EnterLeveltoPlay = Vector2f(11, 10);
+
+    // put the button and title
+    scr.renderImg(EnterLeveltoPlay, start, endpoint_EnterLeveltoPlay, pos_EnterLeveltoPlay);
+
+    pos_U = Vector2f(13, 34);
+    RenderNumber(current, pos_U, start, endpoint_U, scr);
     if (key > K_0 - 1 && key < K_9 + 1) {if (current[0] == K_0) {seed = seed*10 + key-K_0;}}
     switch (key) {
         case K_Bkspc:

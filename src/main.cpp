@@ -116,6 +116,11 @@ int main() {
                 break;
             case M_congratz:
                 //render screen
+                string strseed = to_string(seed);
+                Vector2f pos_U = Vector2f(13, 20);;
+                Vector2i start = Vector2i(0, 0);
+                Vector2i endpoint_U = Vector2i(7, 12);
+                RenderNumber(strseed, pos_U, start, endpoint_U, scr)
                 switch (ch) {
                     case K_B:
                     case K_b:
