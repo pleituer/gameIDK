@@ -82,7 +82,13 @@ PPMFile Cbutton = PPMFile(cbutton);
 const char* ccontinue = "img/continue.ppm";
 PPMFile Ccontinue = PPMFile(ccontinue);
 
-
+// Image for the reset
+const char* rbutton= "img/rbutton.ppm";
+PPMFile Rbutton = PPMFile(rbutton);
+const char* rreset = "img/reset.ppm";
+PPMFile Rreset = PPMFile(rreset);
+const char* successfully = "img/successfully.ppm";
+PPMFile Successfully = PPMFile(successfully);
 
 // Images for the select menu
 const char* u_0 = "img/unit_0.ppm";
@@ -419,10 +425,41 @@ void Helpermenu(Screen& scr)
     scr.renderImg(Smallback,start,endpoint_Smallback,pos_Smallback);
     scr.renderImg(Bbutton,start,endpoint_Bbutton,pos_Bbutton);
 
+}
+void Resetscreen(Screen& scr)
+{
+    Vector2f pos_Back;
+    Vector2f pos_Keyforback;
+    Vector2f pos_Rbutton;
+    Vector2f pos_Rreset;
 
+    Vector2i start = Vector2i(0,0);
+    Vector2i endpoint_Rreset= Vector2i(37,10);
+    Vector2i endpoint_Rbutton = Vector2i(20,10);
+    Vector2i endpoint_Keyforback = Vector2i(20,10);
+    Vector2i endpoint_Back = Vector2i(30,10);
+    
+    pos_Rreset = Vector2f(10,10);
+    pos_Rbutton=Vector2f(45,25);
+    pos_Back = Vector2f(10, 37);
+    pos_Keyforback = Vector2f(35,50);
 
+    scr.renderImg(Rreset,start,endpoint_Rreset,pos_Rreset);
+    scr.renderImg(Rbutton,start,endpoint_Rbutton,pos_Rbutton);
+    scr.renderImg(Back,start,endpoint_Back,pos_Back);
+    scr.renderImg(Keyforback,start,endpoint_Keyforback,pos_Keyforback);
+}
 
+void Resetsuccess(Screen& scr)
+{
+    Vector2f pos_Successfully;
+    Vector2i start = Vector2i(0,0);
+    Vector2i endpoint_Successfully = Vector2i(60,40);
+    pos_Successfully = Vector2f(10,10);
+    scr.renderImg(Successfully,start,endpoint_Successfully,pos_Successfully);
+}
+
+    
     
 
 
-}

@@ -51,4 +51,5 @@ void Helpermenu(Screen& scr);
 
 void Pausescreen(Screen& scr);
 
+void Resetscreen(Screen& scr);
 #endif

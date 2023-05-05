@@ -181,6 +181,7 @@ int main() {
                 break;
             case M_Reset:
                 //render img
+                Resetscreen(scr);
                 switch (ch) {
                     case K_b:
                     case K_B:
