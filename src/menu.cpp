@@ -39,7 +39,6 @@ PPMFile bHelp = PPMFile(bhelp);
 const char* bsea ="img/searchbutton.ppm";
 // Title image
 PPMFile bSearch = PPMFile(bsea);
-"img/background.ppm";
 
 const char* title = "img/titleofgame.ppm";
 PPMFile Title = PPMFile(title);
