@@ -3,17 +3,20 @@
 #if !defined(InputConstantConst)
 #define InputConstantConst 1
 
+// Define error and special keys
 const int errorKey = -69420;
 const int windowsSpecialKey = 0xe0;
 const int unixSpecialKey1 = 0x1b;
 const int unixSpecialKey2 = 0x5b;
 const int nullKey = 0x00;
 
+// Define arrow keys
 const int K_UP = 0x80;
 const int K_DOWN = 0x81;
 const int K_LEFT = 0x82;
 const int K_RIGHT = 0x83;
 
+// Define control keys
 const int K_CtrlA = 0x01;
 const int K_CtrlB = 0x02;
 const int K_CtrlC = 0x03;
