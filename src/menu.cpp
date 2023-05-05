@@ -59,6 +59,19 @@ PPMFile U_9 = PPMFile(u_9);
 const char* enterleveltoplay = "img/EnterLeveltoPlay.ppm";
 PPMFile EnterLeveltoPlay = PPMFile(enterleveltoplay);
 
+// For Congrats screen
+const char* goodgame = "img/GoodGame.ppm";
+PPMFile Goodgame = PPMFile(goodgame);
+const char* back = "img/backbutton.ppm";
+PPMFile Back = PPMFile(back);
+const char* nextt = "img/nextbutton.ppm";
+PPMFile Next = PPMFile(nextt);
+const char* keyforback = "img/keyforback.ppm";
+PPMFile Keyforback = PPMFile(keyforback);
+const char* keyfornext = "img/keyfornext.ppm";
+PPMFile Keyfornext = PPMFile(keyfornext);
+
+
 void fillbackground(PPMFile backgroud,Screen& scr)
 {
     Vector2i start = Vector2i(0,0);
@@ -275,4 +288,32 @@ void SelectMenu(int& status, int& seed, Screen& scr, int key) {
     }
     seed = stoi(current);
 
+}
+void CongratsMenu(Screen& scr)
+{
+    Vector2f pos_Goodgame;
+    Vector2f pos_Back;
+    Vector2f pos_Next;
+    Vector2f pos_Keyforback;
+    Vector2f pos_Keyfornext;
+    
+    Vector2i start = Vector2i(0,0);
+    Vector2i endpoint_Goodgame = Vector2i(65,17);
+    Vector2i endpoint_Back = Vector2i(30,10);
+    Vector2i endpoint_Next = Vector2i(30,10);
+    Vector2i endpoint_Keyforback = Vector2i(20,10);
+    Vector2i endpoint_Keyfornext = Vector2i(20,10);
+
+
+    pos_Goodgame = Vector2f(11,5);
+    pos_Back = Vector2f(25,27);
+    pos_Next = Vector2f(25,47);
+    pos_Keyforback = Vector2f(52,27);
+    pos_Keyfornext = Vector2f(52,47);
+
+    scr.renderImg(Goodgame,start,endpoint_Goodgame,pos_Goodgame);
+    scr.renderImg(Back,start,endpoint_Back,pos_Back);
+    scr.renderImg(Next,start,endpoint_Next,pos_Next);
+    scr.renderImg(Keyforback,start,endpoint_Keyforback,pos_Keyforback);
+    scr.renderImg(keyfornext,start,endpoint_Keyfornext,pos_Keyfornext);
 }

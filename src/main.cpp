@@ -88,6 +88,7 @@ int main() {
         cout << "fps: " << fps << endl;
 
         // Dynamicly display the correct screen during the game
+        
         switch (status) {
             /*
                 0: main menu
@@ -109,9 +110,9 @@ int main() {
                 MazeRun(status, mz, player, ch, scr);
                 break;
             case M_congratz:
+                CongratsMenu(scr);
                 break;
         }
-
         scr.setBoarders(BLUE);
         scr.display();
         scr.moveUp();

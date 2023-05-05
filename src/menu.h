@@ -7,6 +7,7 @@
 void fillbackground(PPMFile backgroud,Screen& scr);
 void PlayMenu(Screen& scr);
 int SelectMenu(Screen& scr);
+
 class button {
 public:
     Vector2i start;
@@ -22,5 +23,6 @@ public:
 void PlayMenu(int& status, Screen& scr, int key, int& currentSelect);
 
 void SelectMenu(int& status, int& seed, Screen& scr, int key);
+void CongratsMenu(Screen& scr);
 
 #endif
