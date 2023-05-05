@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 
+// Include custom header files for the game
 #include "input.h"
 #include "screen.h"
 #include "fileRead.h"
@@ -18,14 +19,17 @@
 
 using namespace std;
 
+// Define file paths for wall and user icon textures
 const char* wallText = "img/WallTexture.ppm";
 PPMFile walltex = PPMFile(wallText);
 const char* iconsfile = "img/userIcon.ppm";
 PPMFile icons = PPMFile(iconsfile);
 
+// Define texture start and end positions
 Vector2i* texStart = new Vector2i[20] {Vector2i(0, 0), Vector2i(5, 0), Vector2i(10, 0), Vector2i(15, 0), Vector2i(0, 5), Vector2i(5, 5), Vector2i(10, 5), Vector2i(15, 5),Vector2i(20, 5), Vector2i(25, 5), Vector2i(30, 5), Vector2i(35, 5), Vector2i(40, 5), Vector2i(45, 5), Vector2i(50, 5), Vector2i(55, 5), Vector2i(60, 5), Vector2i(65, 5), Vector2i(70, 5), Vector2i(75, 5)};
 Vector2i* texEnd = new Vector2i[20];
 
+// Function to ensure the user uses a compatible playing console window
 void FoolProofPlan() {
     Screen FoolproofPlan = Screen(82, 62);
     FoolproofPlan.Init();
@@ -41,6 +45,7 @@ void FoolProofPlan() {
     FoolproofPlan.Done();
 }
 
+// Function to initialize the maze with the given level ID
 void MazeInit(int levelID, Maze& mz, Player& player, Screen& scr) {
     Vector2f start = Vector2f(1.0f, 1.0f);
     srand(levelID);
@@ -55,6 +60,8 @@ void MazeInit(int levelID, Maze& mz, Player& player, Screen& scr) {
     player.~Player();
     new(&player) Player(mz, scr);
 }
+
+// Function to run the maze and update the game status
 void MazeRun(int& status, Maze& mz, Player& player, int ch, Screen& scr, int levelID) {
     Vector2f start = Vector2f(1.0f, 1.0f);
     player.update(ch, mz);
@@ -71,7 +78,7 @@ void MazeRun(int& status, Maze& mz, Player& player, int ch, Screen& scr, int lev
 }
 
 int main() {
-
+    // Initialization, variable declarations, and game loop setup
     Init();
     char InitText[] = "#!/bin/bash\necho -n '' >> completedLevels.txt\n";
     system(InitText);
@@ -99,7 +106,8 @@ int main() {
     for (int i = 0; i < 20; ++i) {texEnd[i] = Vector2i(mz.cellSize, mz.cellSize) + texStart[i];}
 
     cout << "Hi"<< endl;
-
+    
+    // Main game loop
     while (ch != K_q && ch != K_Q) {
         current_ticks = clock();
         cout << "fps: " << fps << endl;
@@ -196,6 +204,7 @@ int main() {
         delta_ticks = clock() - current_ticks;
         if(delta_ticks > 0) {fps = CLOCKS_PER_SEC / delta_ticks;}
     }
+    // Clean up and finish
     scr.clear();
     scr.Done();
     Finish();
