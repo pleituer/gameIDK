@@ -149,7 +149,7 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
 
     // put the button and title
     scr.renderImg(bPlay, start, endpoint_play, pos_play);
-    button playButton(pos_play, endpoint_play, M_SelectMenu, border);
+    button playButton(pos_play, endpoint_play, M_maze, border);
 
     scr.renderImg(bHelp,start,endpoint_help,pos_help);
     button helpButton(pos_help, endpoint_help, M_helpMenu, border);
@@ -160,20 +160,20 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     scr.renderImg(Title,start,endpoint_title,pos_title);
     //scr.setBoarders(BL);
 
-    button select[3] = {playButton, helpButton, searchButton};
+    button select[3] = {playButton, searchButton, helpButton};
     select[currentSelect].highlight(scr);
     switch (key) {
         case K_d:
         case K_D:
         case K_RIGHT:
-        case K_w:
-        case K_W:
-        case K_UP:
-            currentSelect += 1;
-            break;
         case K_s:
         case K_S:
         case K_DOWN:
+            currentSelect += 1;
+            break;
+        case K_w:
+        case K_W:
+        case K_UP:
         case K_a:
         case K_A:
         case K_LEFT:
@@ -187,31 +187,9 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     currentSelect %= 3;
 }
 
-void SelectMenu(int& status, int& seed, Screen& scr, int key) {
-
-    string current = to_string(seed);
-
-    Vector2f pos_U;
-    Vector2f pos_EnterLeveltoPlay;
-
-    Vector2i start = Vector2i(0, 0);
-    Vector2i endpoint_U = Vector2i(7, 12);
-    Vector2i endpoint_EnterLeveltoPlay = Vector2i(58, 17);
-
-    pos_EnterLeveltoPlay = Vector2f(11, 10);
-
-    // put the button and title
-    scr.renderImg(EnterLeveltoPlay, start, endpoint_EnterLeveltoPlay, pos_EnterLeveltoPlay);
-
-    if (current.length() == 6) {
-        seed = stoi(current);
-        status = M_maze;
-        return;
-    }
-
-    pos_U = Vector2f(16, 30);
+void RenderNumber(string current, Vector2f& pos_U, Vector2i& start, Vector2i& endpoint_U, Screen& scr) {
     PPMFile tempChar;
-    for (int i = 0; i < current.size() && seed != 0; i++) {
+    for (int i = 0; i < current.size(); i++) {
         int temp = current[i] - 48;
         switch (temp) {
             case 0:
@@ -247,46 +225,44 @@ void SelectMenu(int& status, int& seed, Screen& scr, int key) {
         }
 
     scr.renderImg(tempChar, start, endpoint_U, pos_U);
-    pos_U.x += 8;
+    pos_U.x += 9;
     }
+}
 
+void SelectMenu(int& status, int& seed, Screen& scr, int key) {
+
+    string current = to_string(seed);
+    while (current.size() < 6) {current = "0" + current;}
+
+    Vector2f pos_U;
+    Vector2f pos_EnterLeveltoPlay;
+
+    Vector2i start = Vector2i(0, 0);
+    Vector2i endpoint_U = Vector2i(7, 12);
+    Vector2i endpoint_EnterLeveltoPlay = Vector2i(58, 17);
+
+    pos_EnterLeveltoPlay = Vector2f(11, 10);
+
+    // put the button and title
+    scr.renderImg(EnterLeveltoPlay, start, endpoint_EnterLeveltoPlay, pos_EnterLeveltoPlay);
+
+    pos_U = Vector2f(13, 34);
+    RenderNumber(current, pos_U, start, endpoint_U, scr);
+    if (key > K_0 - 1 && key < K_9 + 1) {if (current[0] == K_0) {seed = seed*10 + key-K_0;}}
     switch (key) {
-        case K_0:
-            current.append("0");
-            break;
-        case K_1:
-            current.append("1");
-            break;
-        case K_2:
-            current.append("2");
-            break;
-        case K_3:
-            current.append("3");
-            break;
-        case K_4:
-            current.append("4");
-            break;
-        case K_5:
-            current.append("5");
-            break;
-        case K_6:
-            current.append("6");
-            break;
-        case K_7:
-            current.append("7");
-            break;
-        case K_8:
-            current.append("8");
-            break;
-        case K_9:
-            current.append("9");
+        case K_Bkspc:
+        case K_Del:
+            seed /= 10;
             break;
         case K_Space:
             seed = stoi(current);
             status = M_maze;
-            return;
+            break;
+        case K_b:
+        case K_B:
+            status = M_MainMenu;
+            break;
     }
-    seed = stoi(current);
 
 }
 void CongratsMenu(Screen& scr)

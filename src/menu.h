@@ -1,6 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
-
+#include <string>
+using namespace std;
 
 #include "screen.h"
 
@@ -21,6 +22,8 @@ public:
 };
 
 void PlayMenu(int& status, Screen& scr, int key, int& currentSelect);
+
+void RenderNumber(string current, Vector2f& pos_U, Vector2i& start, Vector2i& endpoint_U, Screen& scr);
 
 void SelectMenu(int& status, int& seed, Screen& scr, int key);
 void CongratsMenu(Screen& scr);

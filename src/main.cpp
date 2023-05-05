@@ -1,6 +1,10 @@
 #include <iostream>
 #include <cmath>
 #include <time.h>
+#include <stdlib.h>
+#include <cstring>
+#include <string>
+#include <fstream>
 
 #include "input.h"
 #include "screen.h"
@@ -10,6 +14,7 @@
 #include "player.h"
 #include "menu.h"
 #include "statusConstants.h"
+#include "sleep.h"
 
 using namespace std;
 
@@ -50,17 +55,26 @@ void MazeInit(int levelID, Maze& mz, Player& player, Screen& scr) {
     player.~Player();
     new(&player) Player(mz, scr);
 }
-void MazeRun(int& status, Maze& mz, Player& player, int ch, Screen& scr) {
+void MazeRun(int& status, Maze& mz, Player& player, int ch, Screen& scr, int levelID) {
     Vector2f start = Vector2f(1.0f, 1.0f);
     player.update(ch, mz);
     player.display(scr, mz, icons, walltex, texStart, texEnd, start);
     if (ch == K_b || ch == K_B) {status = 0;}
-    if (player.solvedOrNot(mz)) {status = 4;}
+    if (player.solvedOrNot(mz)) {
+        status = 4;
+        string strsaveText = "#!/bin/bash\necho " + to_string(levelID) + " >> completedLevels.txt\n";
+        char* saveText = new char[strsaveText.length() + 1];
+        strcpy(saveText, strsaveText.c_str());
+        system(saveText);
+        delete[] saveText;
+    }
 }
 
 int main() {
 
     Init();
+    char InitText[] = "#!/bin/bash\necho -n '' >> completedLevels.txt\n";
+    system(InitText);
 
     // Ensures that the user uses a compatible playing console window
     FoolProofPlan();
@@ -74,6 +88,9 @@ int main() {
     int status = 0;
     int currentSelect = 0;
     int seed = 0;
+    int tmp = 0;
+    ifstream fin("completedLevels.txt");
+    while (fin >> tmp) {seed = tmp;}
     Vector2f start = Vector2f(1.0f, 1.0f);
 
     Maze mz = Maze(11, 11, scr, start, false);
@@ -96,21 +113,79 @@ int main() {
                 2: help screen
                 3: maze
                 4: congrats screen after solving maze
+                5: pause screen
+                6: reset screen
             */
             case M_MainMenu:
                 PlayMenu(status, scr, ch, currentSelect);
+                if (status == M_maze) {MazeInit(seed, mz, player, scr);}
+                else if (status == M_SelectMenu) {seed = 0;}
                 break;
             case M_SelectMenu:
                 SelectMenu(status, seed, scr, ch);
-                if (status != M_SelectMenu) { MazeInit(seed, mz, player, scr); }
+                if (status == M_maze) { MazeInit(seed, mz, player, scr); }
                 break;
             case M_helpMenu:
+                //render screen
+                if (ch == K_B || ch == K_b || ch == K_Space) {status = M_MainMenu;}
                 break;
             case M_maze:
-                MazeRun(status, mz, player, ch, scr);
+                MazeRun(status, mz, player, ch, scr, seed);
+                if (ch == K_Space) {status = M_Pause;}
                 break;
             case M_congratz:
                 CongratsMenu(scr);
+                {
+                //render screen
+                string strseed = to_string(seed);
+                Vector2f pos_U = Vector2f(13, 20);;
+                Vector2i start = Vector2i(0, 0);
+                Vector2i endpoint_U = Vector2i(7, 12);
+                RenderNumber(strseed, pos_U, start, endpoint_U, scr);
+                switch (ch) {
+                    case K_B:
+                    case K_b:
+                        status = M_MainMenu;
+                        break;
+                    case K_N:
+                    case K_n:
+                        status = M_maze;
+                        seed = (seed+1)%1000000;
+                        MazeInit(seed, mz, player, scr);
+                        break;
+                }
+                break;
+                }
+            case M_Pause:
+                //render screen
+                switch (ch) {
+                    case K_b:
+                    case K_B:
+                        status = M_MainMenu;
+                        break;
+                    case K_c:
+                    case K_C:
+                        status = M_maze;
+                        break;
+                }
+                break;
+            case M_Reset:
+                //render img
+                switch (ch) {
+                    case K_b:
+                    case K_B:
+                        status = M_MainMenu;
+                        break;
+                    case K_r:
+                    case K_R:
+                        char ResetText[] = "#!/bin/bash\necho 0 > completedLevels.txt\n";
+                        system(ResetText);
+                        seed = 0;
+                        //render img of reseted successfully
+                        sleeps(2);
+                        status = M_MainMenu;
+                        break;
+                }
                 break;
         }
         scr.setBoarders(BLUE);
