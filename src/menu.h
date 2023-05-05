@@ -47,4 +47,6 @@ void SelectMenu(int& status, int& seed, Screen& scr, int key);
 // Function to display the Congratulations menu
 void CongratsMenu(Screen& scr);
 
+void Helpermenu(Screen& scr);
+
 #endif

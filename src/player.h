@@ -26,7 +26,7 @@ class Player {
         // Speed at which the player moves
         float speed;
         // Pointer to the player's icon
-        Vector3i* icon
+        Vector3i* icon;
         // Half of the screen width
         float halfScrwidth;
         // Half of the screen height

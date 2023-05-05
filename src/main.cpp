@@ -135,6 +135,7 @@ int main() {
                 break;
             case M_helpMenu:
                 //render screen
+                Helpermenu(scr);
                 if (ch == K_B || ch == K_b || ch == K_Space) {status = M_MainMenu;}
                 break;
             case M_maze:

@@ -52,6 +52,32 @@ const char* background2 = "img/background2.ppm";
 // Background image 2
 PPMFile Background2 = PPMFile(background2);
 
+//Images for the help menu
+const char* movebutton = "img/movebutton.ppm";
+PPMFile Movebutton = PPMFile(movebutton);
+const char* wasdbutton = "img/wasdbutton.ppm";
+PPMFile Wasdbutton= PPMFile(wasdbutton);
+const char* keymovebutton = "img/keymovebutton.ppm";
+PPMFile Keymovebutton = PPMFile(keymovebutton);
+const char* placemarker = "img/placemarker.ppm";
+PPMFile Placemarker = PPMFile(placemarker);
+const char* xbutton = "img/xbutton.ppm";
+PPMFile Xbutton = PPMFile(xbutton);
+const char* removemarker = "img/removemarker.ppm";
+PPMFile Removemarker = PPMFile(removemarker);
+const char* qbutton = "img/qbutton.ppm";
+PPMFile Qbutton = PPMFile(qbutton);
+const char* ybutton = "img/ybutton.ppm";
+PPMFile Ybutton = PPMFile(ybutton);
+const char* smallback = "img/smallback.ppm";
+PPMFile Smallback = PPMFile(smallback);
+const char* bbutton = "img/bbutton.ppm";
+PPMFile Bbutton = PPMFile(bbutton);
+const char* quitbotton = "img/quit.ppm";
+PPMFile Quitbotton = PPMFile(quitbotton);
+
+
+
 // Images for the select menu
 const char* u_0 = "img/unit_0.ppm";
 PPMFile U_0 = PPMFile(u_0);
@@ -309,4 +335,62 @@ void CongratsMenu(Screen& scr)
     scr.renderImg(Next,start,endpoint_Next,pos_Next);
     scr.renderImg(Keyforback,start,endpoint_Keyforback,pos_Keyforback);
     scr.renderImg(Keyfornext,start,endpoint_Keyfornext,pos_Keyfornext);
+}
+
+void Helpermenu(Screen& scr)
+{
+    Vector2f pos_Movebutton;
+    Vector2f pos_Bbutton;
+    Vector2f pos_Xbutton;
+    Vector2f pos_Removemarker;
+    Vector2f pos_Qbutton;
+    Vector2f pos_Wasdbutton;
+    Vector2f pos_Keymovebutton;
+    Vector2f pos_Placemarker;
+    Vector2f pos_Ybutton;
+    Vector2f pos_Smallback;
+    Vector2f pos_Quitbotton;
+
+    Vector2i start = Vector2i(0,0);
+    Vector2i endpoint_Movebutton = Vector2i(19,7);
+    Vector2i endpoint_Bbutton = Vector2i(19,7);
+    Vector2i endpoint_Xbutton = Vector2i(19,7);
+    Vector2i endpoint_Removemarker = Vector2i(60,7);
+    Vector2i endpoint_Qbutton= Vector2i(19,7);
+    Vector2i endpoint_Wasdbutton = Vector2i(19,7);
+    Vector2i endpoint_Keymovebutton = Vector2i(26,7);
+    Vector2i endpoint_Placemarker = Vector2i(54,7);
+    Vector2i endpoint_Ybutton = Vector2i(14,7);
+    Vector2i endpoint_Smallback= Vector2i(19,7);
+    Vector2i endpoint_Quitbotton = Vector2i(29,7);
+
+    pos_Movebutton = Vector2f(3,10);
+    pos_Wasdbutton = Vector2f(30,10);
+    pos_Keymovebutton = Vector2f(55,10);
+    pos_Placemarker = Vector2f(3,20);
+    pos_Xbutton = Vector2f(60,20);
+    pos_Removemarker = Vector2f(3,30);
+    pos_Ybutton = Vector2f(66,30);
+    pos_Quitbotton = Vector2f(3,40);
+    pos_Qbutton =Vector2f(40,40);
+    pos_Smallback = Vector2f(3,50);
+    pos_Bbutton =Vector2f(40,50);
+    scr.renderImg(Movebutton,start,endpoint_Movebutton,pos_Movebutton);
+    scr.renderImg(Wasdbutton,start,endpoint_Wasdbutton,pos_Wasdbutton);
+    scr.renderImg(Keymovebutton,start,endpoint_Keymovebutton,pos_Keymovebutton);
+    scr.renderImg(Placemarker,start,endpoint_Placemarker,pos_Placemarker);
+    scr.renderImg(Xbutton,start,endpoint_Xbutton,pos_Xbutton);
+    scr.renderImg(Removemarker,start,endpoint_Removemarker,pos_Removemarker);
+    scr.renderImg(Ybutton,start,endpoint_Ybutton,pos_Ybutton);
+    scr.renderImg(Qbutton,start,endpoint_Qbutton,pos_Qbutton);
+    scr.renderImg(Quitbotton,start,endpoint_Quitbotton,pos_Quitbotton);
+    scr.renderImg(Smallback,start,endpoint_Smallback,pos_Smallback);
+    scr.renderImg(Bbutton,start,endpoint_Bbutton,pos_Bbutton);
+
+
+
+
+    
+
+
 }
