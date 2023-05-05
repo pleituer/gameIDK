@@ -284,12 +284,12 @@ void CongratsMenu(Screen& scr)
     pos_Goodgame = Vector2f(11,5);
     pos_Back = Vector2f(25,27);
     pos_Next = Vector2f(25,47);
-    pos_Keyforback = Vector2f(52,27);
-    pos_Keyfornext = Vector2f(52,47);
+    pos_Keyforback = Vector2f(60,27);
+    pos_Keyfornext = Vector2f(60,47);
 
     scr.renderImg(Goodgame,start,endpoint_Goodgame,pos_Goodgame);
     scr.renderImg(Back,start,endpoint_Back,pos_Back);
     scr.renderImg(Next,start,endpoint_Next,pos_Next);
     scr.renderImg(Keyforback,start,endpoint_Keyforback,pos_Keyforback);
-    scr.renderImg(keyfornext,start,endpoint_Keyfornext,pos_Keyfornext);
+    scr.renderImg(Keyfornext,start,endpoint_Keyfornext,pos_Keyfornext);
 }
