@@ -7,6 +7,7 @@
 #include "screen.h"
 #include "sleep.h"
 
+// Define color constants
 const Vector3i& white = Vector3i(255, 255, 255);
 const Vector3i& black = Vector3i(0, 0, 0);
 const Vector3i& red = Vector3i(255, 0, 0);
@@ -15,15 +16,19 @@ const Vector3i& green = Vector3i(0, 255, 0);
 
 using namespace std;
 
+// Check if given position (posX, posY) is within maze bounds
 bool Maze::allowed(int posX, int posY) {
     if (posX > -1 && posY > -1 && posX < width && posY < height) {return true;}
     else {return false;}
 }
 
+// Constructor for the Maze class
 Maze::Maze(int width, int height, Screen& scr, Vector2f pos, bool ShowAnimation) {
     this->width = width;
     this->height = height;
     cellSize = 5;
+    
+    // Initialize starting position
     int startPos = width*(rand()%(height/2))*2;
     world = new int[width*height];
     vector<int> frontiers;
@@ -31,13 +36,19 @@ Maze::Maze(int width, int height, Screen& scr, Vector2f pos, bool ShowAnimation)
     vector<int> temp;
     frontiers.clear();
     neighbors.clear();
+    
+    // Set all cells to state Blocked (1)
     for (int i = 0; i < width*height; ++i) {world[i] = 1;}
     world[startPos] = 0;
+    
+    // Compute frontier cells for starting position
     int sY = startPos/width;
     startingPoint = Vector2i(0, sY);
     if (allowed(0, sY-2) && getCell(0, sY-2)==1) {frontiers.push_back(startPos-2*width);}
     if (allowed(2, sY) && getCell(2, sY)==1) {frontiers.push_back(startPos+2);}
     if (allowed(0, sY+2) && getCell(0, sY+2)==1) {frontiers.push_back(startPos+2*width);}
+    
+    // Randomized Prim's Algorithm for maze generation
     while (!frontiers.empty()) {
         temp.clear();
         if (ShowAnimation){
@@ -45,9 +56,13 @@ Maze::Maze(int width, int height, Screen& scr, Vector2f pos, bool ShowAnimation)
             scr.moveUp();
         }
         neighbors.clear();
+        
+        // Pick a random frontier cell
         int randomCellIndex = rand() % frontiers.size();
         int randomCell = frontiers[randomCellIndex];
         int X = randomCell%width, Y = randomCell/width;
+        
+        // Add neighbors of the chosen frontier cell
         if (allowed(X-2, Y)) {getCell(X-2, Y)==0?neighbors.push_back(randomCell-2):frontiers.push_back(randomCell-2);}
         if (allowed(X, Y-2)) {getCell(X, Y-2)==0?neighbors.push_back(randomCell-2*width):frontiers.push_back(randomCell-2*width);}
         if (allowed(X+2, Y)) {getCell(X+2, Y)==0?neighbors.push_back(randomCell+2):frontiers.push_back(randomCell+2);}
@@ -57,21 +72,27 @@ Maze::Maze(int width, int height, Screen& scr, Vector2f pos, bool ShowAnimation)
         int centerCell = (randomCell + selectedCell)/2;
         world[centerCell] = 0;
         world[randomCell] = 0;
+        // Display the animation if enabled
         if (ShowAnimation) {
             display(scr, pos);
             scr.setPixel(X+pos.x, Y+pos.y, red);
             scr.setPixel(selectedCell%width +pos.x,selectedCell/width + pos.y, yellow);
             scr.setPixel(Vector2i(0, sY)+pos, green);
         }
+        // Update the list of frontier cells
         for (vector<int>::iterator it = frontiers.begin(); it < frontiers.end(); ++it) {if (world[*it] == 1) {temp.push_back(*it);}}
         frontiers = temp;
+        // Add a small delay for the animation
         if (ShowAnimation) {sleeps(0.03f);}
     }
+    // Set the ending point
     temp.clear();
     for (int row = 0; row < height; ++row) {if (getCell(width-1, row) == 0) {temp.push_back(row);}}
     endingPoint = Vector2i(width-1, temp[rand() % temp.size()]);
+    // Update the starting and ending points
     world[startPos] = 2;
     world[endingPoint.x + endingPoint.y*width] = 3;
+    // Update the cell states based on surrounding cells
     for (int i = 0; i < height*width; ++i) {
         int x = i%width, y = i/width;
         if (world[i] == 1) {
@@ -108,6 +129,7 @@ void Maze::display(Screen& scr, Vector2f& pos, PPMFile& texture, Vector2i* start
     }
 }
 
+// Display the maze using colors
 void Maze::display(Screen& scr, Vector2f& pos) {
     for (int row = 0; row < height; ++row) {
         for (int column = 0; column < width; ++column) {
