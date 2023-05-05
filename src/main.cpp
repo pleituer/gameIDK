@@ -167,6 +167,7 @@ int main() {
                 }
             case M_Pause:
                 //render screen
+                Pausescreen(scr);
                 switch (ch) {
                     case K_b:
                     case K_B:

@@ -76,6 +76,12 @@ PPMFile Bbutton = PPMFile(bbutton);
 const char* quitbotton = "img/quit.ppm";
 PPMFile Quitbotton = PPMFile(quitbotton);
 
+// Image for the pause 
+const char* cbutton = "img/cbutton.ppm";
+PPMFile Cbutton = PPMFile(cbutton);
+const char* ccontinue = "img/continue.ppm";
+PPMFile Ccontinue = PPMFile(ccontinue);
+
 
 
 // Images for the select menu
@@ -113,6 +119,8 @@ const char* keyforback = "img/keyforback.ppm";
 PPMFile Keyforback = PPMFile(keyforback);
 const char* keyfornext = "img/keyfornext.ppm";
 PPMFile Keyfornext = PPMFile(keyfornext);
+
+
 
 
 void fillbackground(PPMFile backgroud,Screen& scr)
@@ -335,6 +343,30 @@ void CongratsMenu(Screen& scr)
     scr.renderImg(Next,start,endpoint_Next,pos_Next);
     scr.renderImg(Keyforback,start,endpoint_Keyforback,pos_Keyforback);
     scr.renderImg(Keyfornext,start,endpoint_Keyfornext,pos_Keyfornext);
+}
+void Pausescreen(Screen& scr)
+{   
+    Vector2f pos_Ccontinue;
+    Vector2f pos_Cbutton;
+    Vector2f pos_Back;
+    Vector2f pos_Keyforback;
+    
+    Vector2i start = Vector2i(0,0);
+    Vector2i endpoint_Ccontinue= Vector2i(60,10);
+    Vector2i endpoint_Cbutton = Vector2i(20,10);
+    Vector2i endpoint_Keyforback = Vector2i(20,10);
+    Vector2i endpoint_Back = Vector2i(30,10);
+
+    pos_Ccontinue = Vector2f(10,10);
+    pos_Cbutton = Vector2f(45,25);
+    pos_Back = Vector2f(10, 37);
+    pos_Keyforback = Vector2f(35,50);
+
+    scr.renderImg(Ccontinue,start,endpoint_Ccontinue,pos_Ccontinue);
+    scr.renderImg(Cbutton,start,endpoint_Cbutton,pos_Cbutton);
+    scr.renderImg(Back,start,endpoint_Back,pos_Back);
+    scr.renderImg(Keyforback,start,endpoint_Keyforback,pos_Keyforback);
+    
 }
 
 void Helpermenu(Screen& scr)

@@ -49,4 +49,6 @@ void CongratsMenu(Screen& scr);
 
 void Helpermenu(Screen& scr);
 
+void Pausescreen(Screen& scr);
+
 #endif
