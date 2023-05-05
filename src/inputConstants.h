@@ -22,6 +22,7 @@ const int K_CtrlE = 0x05;
 const int K_CtrlF = 0x06;
 const int K_CtrlG = 0x07;
 const int K_CtrlH = 0x08;
+const int K_Bkspc = 0x08;
 const int K_CtrlI = 0x09;
 const int K_CtrlJ = 0x0a;
 const int K_CtrlK = 0x0b;

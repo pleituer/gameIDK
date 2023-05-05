@@ -1,5 +1,3 @@
-#pragma once
-
 #if !defined(statusConstantConst)
 #define statusConstantConst 1
 

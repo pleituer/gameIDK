@@ -95,20 +95,39 @@ int main() {
                 2: help screen
                 3: maze
                 4: congrats screen after solving maze
+                5: pause screen
+                6: reset screen
             */
             case M_MainMenu:
                 PlayMenu(status, scr, ch, currentSelect);
+                if (status == M_maze) {MazeInit(seed, mz, player, scr);}
+                else if (status == M_SelectMenu) {seed = 0;}
                 break;
             case M_SelectMenu:
                 SelectMenu(status, seed, scr, ch);
-                if (status != M_SelectMenu) { MazeInit(seed, mz, player, scr); }
+                if (status == M_maze) { MazeInit(seed, mz, player, scr); }
                 break;
             case M_helpMenu:
+                //render screen
+                if (ch == K_B || ch == K_b || ch == K_Space) {status = M_MainMenu;}
                 break;
             case M_maze:
                 MazeRun(status, mz, player, ch, scr);
                 break;
             case M_congratz:
+                //render screen
+                switch (ch) {
+                    case K_B:
+                    case K_b:
+                        status = M_MainMenu;
+                        break;
+                    case K_N:
+                    case K_n:
+                        status = M_maze;
+                        seed = (seed+1)%1000000;
+                        MazeInit(seed, mz, player, scr);
+                        break;
+                }
                 break;
         }
 
