@@ -1,3 +1,4 @@
+// If the statusConstantConst macro is not defined, define it as 1.
 #if !defined(statusConstantConst)
 #define statusConstantConst 1
 

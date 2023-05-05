@@ -3,6 +3,7 @@
 #include <string>
 #include <cmath>
 
+// Include necessary header files
 #include "screen.h"
 #include "helpers.h"
 #include "fileRead.h"
@@ -10,6 +11,7 @@
 
 using namespace std;
 
+// Screen class constructor, initializes width, height and screen buffer
 Screen::Screen(int p_width, int p_height) {
     width = p_width;
     height = p_height;
@@ -17,45 +19,59 @@ Screen::Screen(int p_width, int p_height) {
     clears();
 }
 
+
+// Initialize the screen by hiding the cursor
 void Screen::Init() {cout << "\x1b[?25l";}
 
+// Clean up the screen by showing the cursor
 void Screen::Done() {cout << "\x1b[?25h";}
 
+// Getter for height
 int Screen::getHeight() {return height;}
 
+// Getter for width
 int Screen::getWidth() {return width;}
 
+// Get pixel at integer coordinates (x, y)
 Vector3i& Screen::getPixel(int x, int y) {return screen[x + y*width];}
 
+// Get pixel at floating-point coordinates (x, y)
 Vector3i& Screen::getPixel(float x, float y) {return screen[int(round(x)) + int(round(y))*width];}
 
+// Set pixel at integer coordinates (x, y) to a given color
 void Screen::setPixel(int x, int y, const Vector3i& pixel) {
     if(x>-1 && y>-1 && x<width && y<height) {screen[x + y*width] = pixel;}
 }
 
+// Set pixel at floating-point coordinates (x, y) to a given color
 void Screen::setPixel(float x, float y, const Vector3i& pixel) {
     int X = int(round(x)), Y = int(round(y));
     if(X>-1 && Y>-1 && X<width && Y<height) {screen[X + Y*width] = pixel;}
 }
 
+// Set pixel at integer coordinates specified by a Vector2i to a given color
 void Screen::setPixel(Vector2i& pos, const Vector3i& pixel) {
     if(pos.x>-1 && pos.y>-1 && pos.x<width && pos.y<height) {screen[pos.x + pos.y*width] = pixel;}
 }
 
+// Set pixel at floating-point coordinates specified by a Vector2f to a given color
 void Screen::setPixel(Vector2f& pos, const Vector3i& pixel) {
     int X = int(round(pos.x)), Y = int(round(pos.y));
     if(X>-1 && Y>-1 && X<width && Y<height) {screen[X + Y*width] = pixel;}
 }
 
+// Set pixel at constant integer coordinates specified by a Vector2i to a given color
 void Screen::setPixel(const Vector2i& pos, const Vector3i& pixel) {
     if(pos.x>-1 && pos.y>-1 && pos.x<width && pos.y<height) {screen[pos.x + pos.y*width] = pixel;}
 }
 
+// Set pixel at constant floating-point coordinates specified by a Vector2f to a given color
 void Screen::setPixel(const Vector2f& pos, const Vector3i& pixel) {
     int X = int(round(pos.x)), Y = int(round(pos.y));
     if(X>-1 && Y>-1 && X<width && Y<height) {screen[X + Y*width] = pixel;}
 }
 
+// Set the color of the border pixels
 void Screen::setBoarders(const Vector3i& color) {
     for (int column = 0; column < width; ++column) {
         setPixel(column, 0, color);
@@ -67,20 +83,25 @@ void Screen::setBoarders(const Vector3i& color) {
     }
 }
 
+// Draw a horizontal line from startX to endX at a fixed y position with the specified color
 void Screen::drawHorizontalLine(float startX, float endX, float y, const Vector3i& color) {
     if (startX < endX) {for (float x = startX; x < endX; ++x) {setPixel(x, y, color);}}
     else {for (float x = startX; x > endX; --x) {setPixel(x, y, color);}}
 }
 
+
+// Draw a vertical line from startY to endY at a fixed x position with the specified color
 void Screen::drawVerticalLine(float x, float startY, float endY, const Vector3i& color) {
     if (startY < endY) {for (float y = startY; y < endY; ++y) {setPixel(x, y, color);}}
     else  {for (float y = startY; y > endY; --y) {setPixel(x, y, color);}}
 }
 
+// Draw an exclusive rectangle defined by start and end coordinates with the specified color
 void Screen::drawExclusiveRectangle(Vector2i start, Vector2i end, const Vector3i &color) {
     drawExclusiveRectangle(start.x, end.x, start.y, end.y, color);
 }
 
+// Draw an exclusive rectangle defined by integer start and end coordinates with the specified color
 void Screen::drawExclusiveRectangle(int startX, int endX, int startY, int endY, const Vector3i& color) {
     drawHorizontalLine(startX - 1, endX + 1, startY - 1, color);
     drawHorizontalLine(startX - 1, endX + 1, endY, color);
@@ -88,6 +109,7 @@ void Screen::drawExclusiveRectangle(int startX, int endX, int startY, int endY, 
     drawVerticalLine(endX, startY, endY, color);
 }
 
+// Draw a line using the naive approach with a given precision
 void Screen::drawLineNaive(Vector2f& start, Vector2f& end, const Vector3i& color, float precision) {
     if (start != end) {
         float delX = end.x - start.x;
@@ -100,6 +122,7 @@ void Screen::drawLineNaive(Vector2f& start, Vector2f& end, const Vector3i& color
     }
 }
 
+// Draw line using the LineLow algorithm
 void Screen::LineLow(Vector2f& start, Vector2f& end, const Vector3i& color) {
     float dx = end.x - start.x;
     float dy = end.y - start.y;
@@ -121,6 +144,7 @@ void Screen::LineLow(Vector2f& start, Vector2f& end, const Vector3i& color) {
     }
 }
 
+// Draw line using the LineLow algorithm
 void Screen::LineHigh(Vector2f& start, Vector2f& end, const Vector3i& color) {
     float dx = end.x - start.x;
     float dy = end.y - start.y;
@@ -142,6 +166,7 @@ void Screen::LineHigh(Vector2f& start, Vector2f& end, const Vector3i& color) {
     }
 }
 
+// Draw a line using either LineLow or LineHigh algorithm depending on the slope
 void Screen::drawLine(Vector2f& start, Vector2f& end, const Vector3i& color) {
     if (start == end) {return;}
     else if (start.x == end.x) {drawVerticalLine(start.x, start.y, end.y, color);}
@@ -155,6 +180,7 @@ void Screen::drawLine(Vector2f& start, Vector2f& end, const Vector3i& color) {
     }
 }
 
+// Draw a line using either LineLow or LineHigh algorithm depending on the slope
 void Screen::drawCircle(Vector2f& center, float radius, const Vector3i& color) {
     float x = radius, y = 0.0f;
     setPixel(x + center.x, y + center.y, color);
@@ -185,6 +211,7 @@ void Screen::drawCircle(Vector2f& center, float radius, const Vector3i& color) {
     }
 }
 
+// Render an image on the screen with specified start and end positions and position on screen
 void Screen::renderImg(PPMFile& src, Vector2i& start, Vector2i& end, Vector2f& pos) {
     for (int row = 0; row < end.y - start.y; ++row) {
         for (int column = 0; column < end.x - start.x; ++column) {
@@ -193,6 +220,7 @@ void Screen::renderImg(PPMFile& src, Vector2i& start, Vector2i& end, Vector2f& p
     }
 }
 
+// Render an image on the screen with specified start and end positions and position on screen
 void Screen::renderImg(Vector3i* src, Vector2i& start, Vector2i& end, Vector2f& pos, int imgWidth) {
     for (int row = 0; row < end.y - start.y; ++row) {
         for (int column = 0; column < end.x - start.x; ++column) {

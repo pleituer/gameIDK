@@ -1,3 +1,4 @@
+// Include necessary libraries and header files
 #include <iostream>
 #include <string>
 #include <stdlib.h>
@@ -9,33 +10,49 @@
 
 
 using namespace std;
+// Define color constants
+// White color
 const Vector3i& w = Vector3i(255, 255, 255);
+// Black color
 const Vector3i& b = Vector3i(0, 0, 0);
+// Red color
 const Vector3i& r = Vector3i(255, 0, 0);
+// Yellow color
 const Vector3i& y = Vector3i(255, 255, 0);
+// Green color
 const Vector3i& g = Vector3i(0, 255, 0);
+ // Blue color
 const Vector3i& BL = Vector3i(0, 0, 255);
 
+// Red color for border
 Vector3i border = Vector3i(255, 0, 0);
 
-// read ppm file
-// for main menu
+// Declare file paths for images used in the program
+// Images for the main menu
 const char* bplay = "img/playbutton2.ppm";
+// Play button image
 PPMFile bPlay = PPMFile(bplay);
 const char* bhelp = "img/helpbutton.ppm";
+// Help button image
 PPMFile bHelp = PPMFile(bhelp);
+// Search button image
 const char* bsea ="img/searchbutton.ppm";
+// Title image
 PPMFile bSearch = PPMFile(bsea);
+
 const char* title = "img/titleofgame.ppm";
 PPMFile Title = PPMFile(title);
 const char* background = "img/background.ppm";
+// Background image 
 PPMFile Background = PPMFile(background);
 const char* background1 = "img/background1.ppm";
+// Background image 1
 PPMFile Background1 = PPMFile(background1);
 const char* background2 = "img/background2.ppm";
+// Background image 2
 PPMFile Background2 = PPMFile(background2);
 
-// for select menu
+// Images for the select menu
 const char* u_0 = "img/unit_0.ppm";
 PPMFile U_0 = PPMFile(u_0);
 const char* u_1 = "img/unit_1.ppm";
@@ -59,7 +76,7 @@ PPMFile U_9 = PPMFile(u_9);
 const char* enterleveltoplay = "img/EnterLeveltoPlay.ppm";
 PPMFile EnterLeveltoPlay = PPMFile(enterleveltoplay);
 
-// For Congrats screen
+// Images for the congrats screen
 const char* goodgame = "img/GoodGame.ppm";
 PPMFile Goodgame = PPMFile(goodgame);
 const char* back = "img/backbutton.ppm";
