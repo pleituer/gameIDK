@@ -40,6 +40,9 @@ const char* bsea ="img/searchbutton.ppm";
 // Title image
 PPMFile bSearch = PPMFile(bsea);
 
+const char* mreset = "img/mreset.ppm";
+PPMFile Mreset = PPMFile(mreset);
+
 const char* title = "img/titleofgame.ppm";
 PPMFile Title = PPMFile(title);
 const char* background = "img/background.ppm";
@@ -180,6 +183,7 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     Vector2f pos_search;
     Vector2f pos_help;
     Vector2f pos_title;
+    Vector2f pos_Mreset;
 
 
     Vector2i start = Vector2i(0,0);
@@ -187,13 +191,15 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     Vector2i endpoint_search = Vector2i(30,7);
     Vector2i endpoint_help = Vector2i(30,7);
     Vector2i endpoint_title = Vector2i(46,15);
+    Vector2i endpoint_Mreset = Vector2i(30,7);
 
 
 
-    pos_play = Vector2f(25,27);
-    pos_search = Vector2f(25,37);
-    pos_help = Vector2f(25,47);
+    pos_play = Vector2f(25,21);
+    pos_search = Vector2f(25,31);
+    pos_help = Vector2f(25,41);
     pos_title = Vector2f(17,2);
+    pos_Mreset = Vector2f(25,51);
 
 
     // randomly form background
@@ -216,10 +222,13 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
     scr.renderImg(bSearch,start,endpoint_search,pos_search);
     button searchButton(pos_search, endpoint_search,M_SelectMenu, border);
 
+    scr.renderImg(Mreset,start, endpoint_Mreset,pos_Mreset);
+    button mresetButton(pos_Mreset, endpoint_Mreset, M_Reset, border);
+
     scr.renderImg(Title,start,endpoint_title,pos_title);
     //scr.setBoarders(BL);
 
-    button select[3] = {playButton, searchButton, helpButton};
+    button select[4] = {playButton, searchButton, helpButton, mresetButton};
     select[currentSelect].highlight(scr);
     switch (key) {
         case K_d:
@@ -243,7 +252,7 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
             currentSelect = 0;
             return;
     }
-    currentSelect %= 3;
+    currentSelect %= 4;
 }
 
 void RenderNumber(string current, Vector2f& pos_U, Vector2i& start, Vector2i& endpoint_U, Screen& scr) {
