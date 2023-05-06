@@ -130,6 +130,8 @@ const char* keyforback = "img/keyforback.ppm";
 PPMFile Keyforback = PPMFile(keyforback);
 const char* keyfornext = "img/keyfornext.ppm";
 PPMFile Keyfornext = PPMFile(keyfornext);
+const char* level1 = "img/level1.ppm";
+PPMFile Level1 = PPMFile(level1);
 
 
 
@@ -340,6 +342,7 @@ void CongratsMenu(Screen& scr)
     Vector2f pos_Next;
     Vector2f pos_Keyforback;
     Vector2f pos_Keyfornext;
+    Vector2f pos_Level1;
     
     Vector2i start = Vector2i(0,0);
     Vector2i endpoint_Goodgame = Vector2i(65,17);
@@ -347,19 +350,22 @@ void CongratsMenu(Screen& scr)
     Vector2i endpoint_Next = Vector2i(30,10);
     Vector2i endpoint_Keyforback = Vector2i(20,10);
     Vector2i endpoint_Keyfornext = Vector2i(20,10);
+    Vector2i endpoint_Level1 = Vector2i(20,10);
 
 
     pos_Goodgame = Vector2f(11,5);
     pos_Back = Vector2f(25,33);
     pos_Next = Vector2f(25,47);
-    pos_Keyforback = Vector2f(60,32);
+    pos_Keyforback = Vector2f(60,34);
     pos_Keyfornext = Vector2f(60,47);
+    pos_Level1 = Vector2f(3,20);
 
     scr.renderImg(Goodgame,start,endpoint_Goodgame,pos_Goodgame);
     scr.renderImg(Back,start,endpoint_Back,pos_Back);
     scr.renderImg(Next,start,endpoint_Next,pos_Next);
     scr.renderImg(Keyforback,start,endpoint_Keyforback,pos_Keyforback);
     scr.renderImg(Keyfornext,start,endpoint_Keyfornext,pos_Keyfornext);
+    scr.renderImg(Level1,start,endpoint_Level1,pos_Level1);
 }
 void Pausescreen(Screen& scr)
 {   
@@ -447,6 +453,7 @@ void Resetscreen(Screen& scr)
     Vector2f pos_Keyforback;
     Vector2f pos_Rbutton;
     Vector2f pos_Rreset;
+    
 
     Vector2i start = Vector2i(0,0);
     Vector2i endpoint_Rreset= Vector2i(37,10);
