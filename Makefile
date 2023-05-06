@@ -1,6 +1,3 @@
-########################################################################
-####################### Makefile Template ##############################
-########################################################################
 
 # Compiler settings - Can be customized.
 CC = g++
@@ -13,22 +10,21 @@ EXT = .cpp
 SRCDIR = src
 OBJDIR = obj
 
-############## Do not change anything from here downwards! #############
+# Internal settings and variables
 SRC = $(wildcard $(SRCDIR)/*$(EXT))
 OBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)/%.o)
 DEP = $(OBJ:$(OBJDIR)/%.o=%.d)
+
 # UNIX-based OS variables & settings
 RM = rm
 DELOBJ = $(OBJ)
+
 # Windows OS variables & settings
 DEL = del
 EXE = .exe
 WDELOBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)\\%.o)
 
-########################################################################
-####################### Targets beginning here #########################
-########################################################################
-
+# Targets
 all: $(APPNAME)
 
 # Builds the app
@@ -45,9 +41,8 @@ $(APPNAME): $(OBJ)
 # Building rule for .o files and its .c/.cpp in combination with all .h
 $(OBJDIR)/%.o: $(SRCDIR)/%$(EXT)
 	$(CC) $(CXXFLAGS) -o $@ -c $<
-
-################### Cleaning rules for Unix-based OS ###################
-# Cleans complete project
+	
+# Cleaning rules for Unix-based OS
 .PHONY: clean
 clean:
 	$(RM) $(DELOBJ) $(DEP) $(APPNAME)
@@ -57,8 +52,7 @@ clean:
 cleandep:
 	$(RM) $(DEP)
 
-#################### Cleaning rules for Windows OS #####################
-# Cleans complete project
+# Cleaning rules for Windows OS
 .PHONY: cleanw
 cleanw:
 	$(DEL) $(WDELOBJ) $(DEP) $(APPNAME)$(EXE)
