@@ -3,6 +3,7 @@
 #include <string>
 #include <stdlib.h>
 #include <time.h>
+
 #include "screen.h"
 #include "menu.h"
 #include "input.h"
@@ -252,6 +253,7 @@ void PlayMenu(int& status, Screen& scr, int key , int& currentSelect) {
             currentSelect = 0;
             return;
     }
+    if (currentSelect < 0) {currentSelect += 4;}
     currentSelect %= 4;
 }
 

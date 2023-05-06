@@ -31,16 +31,20 @@ Vector2i* texEnd = new Vector2i[20];
 
 // Function to ensure the user uses a compatible playing console window
 void FoolProofPlan() {
+    Init();
     Screen FoolproofPlan = Screen(82, 62);
     FoolproofPlan.Init();
-    cout << "Please make sure you can see the whole BLUE RECTANGLE and ALL of the words" << endl;
+    cout << "Please make sure you can see the whole BLUE RECTANGLE and ALL of the words\nHint: you may need to resize your font (usually Ctrl - will make the font smaller)\nPress Q to quit" << endl;
     FoolproofPlan.setBoarders(BLUE);
     FoolproofPlan.display();
     cout << "Please scroll UP" << endl;
     int width = 0;
     int height = 0;
+    int ch;
     while (width < 85 || height < 65) {
+        ch = getChar();
         SetScreenSize(width, height);
+        if (ch == K_q || ch == K_Q) {FoolproofPlan.clear();FoolproofPlan.Done();Finish();exit(1);}
     }
     FoolproofPlan.Done();
 }

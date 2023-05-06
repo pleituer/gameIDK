@@ -1,6 +1,7 @@
 // Include necessary header files.
 #include <stdlib.h>
 
+#include "sleep.h"
 
 // Check if the operating system is Windows.
 #if _WIN32
