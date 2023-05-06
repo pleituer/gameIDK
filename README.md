@@ -1,6 +1,6 @@
 # Game of Group 169 
 
-## Team Meambers:
+## Team Meambers: Lui Hong Zhi, Chang Kwan Jack, Cai Jiahui, Yao Yao, Chan Kin Richard
 
 ## Control & How to Play
 
