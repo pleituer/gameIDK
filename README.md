@@ -18,7 +18,7 @@ Code Requirement. Your implementation should include all the following coding el
 • Proper indentation and naming styles
 • In-code documentation
 
-## Nom-standard Libraries
+## Non-standard Libraries
 
 Fact: None
 
