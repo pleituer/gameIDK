@@ -20,4 +20,6 @@ Code Requirement. Your implementation should include all the following coding el
 
 ## Libraries
 
+Fact: None
+
 ## Quick Start
