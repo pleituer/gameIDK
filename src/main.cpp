@@ -69,7 +69,7 @@ void MazeRun(int& status, Maze& mz, Player& player, int ch, Screen& scr, int lev
     if (ch == K_b || ch == K_B) {status = 0;}
     if (player.solvedOrNot(mz)) {
         status = 4;
-        string strsaveText = "#!/bin/bash\necho " + to_string(levelID) + " >> completedLevels.txt\n";
+        string strsaveText = "echo " + to_string(levelID) + " >> completedLevels.txt\n";
         char* saveText = new char[strsaveText.length() + 1];
         strcpy(saveText, strsaveText.c_str());
         system(saveText);
@@ -80,8 +80,8 @@ void MazeRun(int& status, Maze& mz, Player& player, int ch, Screen& scr, int lev
 int main() {
     // Initialization, variable declarations, and game loop setup
     Init();
-    char InitText[] = "#!/bin/bash\necho -n '' >> completedLevels.txt\n";
-    system(InitText);
+    ofstream file ("completedLevels.txt");
+    file.close();
 
     // Ensures that the user uses a compatible playing console window
     FoolProofPlan();
@@ -189,7 +189,7 @@ int main() {
                         break;
                     case K_r:
                     case K_R:
-                        char ResetText[] = "#!/bin/bash\necho 0 > completedLevels.txt\n";
+                        char ResetText[] = "echo 0 > completedLevels.txt\n";
                         system(ResetText);
                         seed = 0;
                         //render img of reseted successfully
