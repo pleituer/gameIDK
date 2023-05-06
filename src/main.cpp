@@ -193,6 +193,7 @@ int main() {
                         system(ResetText);
                         seed = 0;
                         //render img of reseted successfully
+                        Resetsuccess(scr);
                         sleeps(2);
                         status = M_MainMenu;
                         break;
