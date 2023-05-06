@@ -1,18 +1,9 @@
-# gameIDK
-idk
+# Game of Group 169 
 
-how to run:
+## Team Meambers:
 
-```~$ make```
+## Control & How to Play
 
-**If compilation fails, attempt to create a ```obj``` folder in the game directory***
+## Features
 
-then
-
-```~$ ./main```
-most importantly 
-have funnnn!
-:>
-:>
-:>
-:>
+## Quick Start
