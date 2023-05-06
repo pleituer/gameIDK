@@ -60,3 +60,5 @@ Type `make` to compile the files
 Then type `./main` to execute the game (you might have to make fonts the terminal smaller and your terminal size larger)
 
 You can type `make clean` to delete the `.o` files in Linux and Mac, or `make cleanw` in Windows 
+
+Note: When playing, sometimes hitboxes are a bit weird and you might get stuck, please randomly move your charatcer to get around
