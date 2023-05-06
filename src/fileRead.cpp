@@ -16,12 +16,12 @@ PPMFile::PPMFile(const char* filename) {
     // Open the file in binary mode and set the file pointer to the end
     file.open(filename, ios::in | ios::binary | ios::ate);
     if (file.is_open()) {
-        cout << "processing " << filename << endl;
+        cout << "Loading " << filename << endl;
         file.seekg(0, ios::end);
         // Get the file size
         size = file.tellg();
         file.seekg(0, ios::beg);
-        cout << "ppm size " << size << endl;
+        //cout << "ppm size " << size << endl;
 
         // Create a buffer to read the entire file into memory
         char* data = new char[size];
@@ -52,13 +52,13 @@ PPMFile::PPMFile(const char* filename) {
             ptr++;
         }
 
-        cout << ptr << '\n';
+        //cout << ptr << '\n';
         int pixIndex = 0;
         // Calculate the trimmer value to normalize pixel values to 255
         float trimmer = 255.0f/maxPix;
         // Allocate memory for the image data
         Img = new Vector3i[height*width];
-        cout << width << ' ' << height << ' ' << maxPix << ' ' << trimmer << '\n';
+        //cout << width << ' ' << height << ' ' << maxPix << ' ' << trimmer << '\n';
         
         // If PPM type is P6 (binary)
         if (data[0] == 'P' && data[1] == '6') {
@@ -83,7 +83,7 @@ PPMFile::PPMFile(const char* filename) {
 
                 // Read red value
                 while (data[ptr] < '0' || data[ptr] > '9') {ptr++;}
-                cout << ptr << '\n';
+                //cout << ptr << '\n';
                 int r = 0;
                 while (data[ptr] >= '0' && data[ptr] <= '9') {
                     r = r*10 + data[ptr] - 48;
@@ -106,19 +106,19 @@ PPMFile::PPMFile(const char* filename) {
                     ptr++;
                 }
 
-                cout << r << ' ' << g << ' ' << b << '\n';
+                //cout << r << ' ' << g << ' ' << b << '\n';
                 // Create a Vector3i object and normalize the pixel values
                 Img[pixIndex] = Vector3i(
                     int(trimmer*r), 
                     int(trimmer*g), 
                     int(trimmer*b)
                 );
-                cout<<"debug "<<height*width - pixIndex<<' '<<int(size)<<endl;
+                //cout<<"debug "<<height*width - pixIndex<<' '<<int(size)<<endl;
                 pixIndex++;
             }
 
         }
-        cout << "loading complete" << endl;
+        //cout << "loading complete" << endl;
         // Free the buffer used to read the file
         delete[] data;
         readable = true;
