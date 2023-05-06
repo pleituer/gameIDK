@@ -81,6 +81,8 @@ const char* cbutton = "img/cbutton.ppm";
 PPMFile Cbutton = PPMFile(cbutton);
 const char* ccontinue = "img/continue.ppm";
 PPMFile Ccontinue = PPMFile(ccontinue);
+const char* paused = "img/pause.ppm";
+PPMFile Paused = PPMFile(paused);
 
 // Image for the reset
 const char* rbutton= "img/rbutton.ppm";
@@ -356,22 +358,26 @@ void Pausescreen(Screen& scr)
     Vector2f pos_Cbutton;
     Vector2f pos_Back;
     Vector2f pos_Keyforback;
+    Vector2f pos_Paused;
     
     Vector2i start = Vector2i(0,0);
     Vector2i endpoint_Ccontinue= Vector2i(60,10);
     Vector2i endpoint_Cbutton = Vector2i(20,10);
     Vector2i endpoint_Keyforback = Vector2i(20,10);
     Vector2i endpoint_Back = Vector2i(30,10);
+    Vector2i endpoint_Paused = Vector2i(30,7);
 
-    pos_Ccontinue = Vector2f(10,10);
-    pos_Cbutton = Vector2f(45,25);
+    pos_Ccontinue = Vector2f(10,15);
+    pos_Cbutton = Vector2f(54,31);
     pos_Back = Vector2f(10, 37);
-    pos_Keyforback = Vector2f(35,50);
+    pos_Keyforback = Vector2f(40,50);
+    pos_Paused = Vector2f(30,3);
 
     scr.renderImg(Ccontinue,start,endpoint_Ccontinue,pos_Ccontinue);
     scr.renderImg(Cbutton,start,endpoint_Cbutton,pos_Cbutton);
     scr.renderImg(Back,start,endpoint_Back,pos_Back);
     scr.renderImg(Keyforback,start,endpoint_Keyforback,pos_Keyforback);
+    scr.renderImg(Paused,start,endpoint_Paused,pos_Paused);
     
 }
 
@@ -392,7 +398,7 @@ void Helpermenu(Screen& scr)
     Vector2i start = Vector2i(0,0);
     Vector2i endpoint_Movebutton = Vector2i(19,7);
     Vector2i endpoint_Bbutton = Vector2i(19,7);
-    Vector2i endpoint_Xbutton = Vector2i(19,7);
+    Vector2i endpoint_Xbutton = Vector2i(14,7);
     Vector2i endpoint_Removemarker = Vector2i(60,7);
     Vector2i endpoint_Qbutton= Vector2i(19,7);
     Vector2i endpoint_Wasdbutton = Vector2i(19,7);
