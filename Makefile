@@ -1,63 +1,34 @@
+FLAGS = -pedantic-errors -std=c++11
 
-# Compiler settings - Can be customized.
-CC = g++
-CXXFLAGS = -std=c++11 -Wall
-LDFLAGS = 
+main: main.o inputWindows.o inputLinuxMac.o screen.o fileRead.o maze.o player.o menu.o sleep.o helpers.o
+	g++ $(FLAGS) $^ -o $@
 
-# Makefile settings - Can be customized.
-APPNAME = main
-EXT = .cpp
-SRCDIR = src
-OBJDIR = obj
+main.o: src\main.cpp src\input.h src\screen.h src\fileRead.h src\maze.h src\player.h src\menu.h src\sleep.h src\helpersConsts.h src\statusConstants.h
+	g++ $(FLAGS) -c $<
 
-# Internal settings and variables
-SRC = $(wildcard $(SRCDIR)/*$(EXT))
-OBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)/%.o)
-DEP = $(OBJ:$(OBJDIR)/%.o=%.d)
+inputWindows.o: src\inputWindows.cpp src\inputWindows.h src\inputConstants.h
+	g++ $(FLAGS) -c $<
 
-# UNIX-based OS variables & settings
-RM = rm
-DELOBJ = $(OBJ)
+inputLinuxMac.o: src\inputLinuxMac.cpp src\inputLinuxMac.h src\inputConstants.h
+	g++ $(FLAGS) -c $<
 
-# Windows OS variables & settings
-DEL = del
-EXE = .exe
-WDELOBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)\\%.o)
+screen.o: src\screen.cpp src\screen.h src\helpers.h src\fileRead.h src\sleep.h
+	g++ $(FLAGS) -c $<
 
-# Targets
-all: $(APPNAME)
+fileRead.o: src\fileRead.cpp src\fileRead.h src\helpers.h
+	g++ $(FLAGS) -c $<
 
-# Builds the app
-$(APPNAME): $(OBJ)
-	$(CC) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+maze.o: src\maze.cpp src\maze.h src\screen.h src\sleep.h 
+	g++ $(FLAGS) -c $<
 
-# Creates the dependecy rules
-%.d: $(SRCDIR)/%$(EXT)
-	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=$(OBJDIR)/%.o) >$@
+player.o: src\player.cpp src\player.h src\helpers.h src\screen.h src\maze.h src\input.h src\fileRead.h
+	g++ $(FLAGS) -c $<
 
-# Includes all .h files
--include $(DEP)
+menu.o: src\menu.cpp src\menu.h src\screen.h src\input.h src\statusConstants.h
+	g++ $(FLAGS) -c $<
 
-# Building rule for .o files and its .c/.cpp in combination with all .h
-$(OBJDIR)/%.o: $(SRCDIR)/%$(EXT)
-	$(CC) $(CXXFLAGS) -o $@ -c $<
-	
-# Cleaning rules for Unix-based OS
-.PHONY: clean
-clean:
-	$(RM) $(DELOBJ) $(DEP) $(APPNAME)
+sleep.o: src\sleep.cpp src\sleep.h
+	g++ $(FLAGS) -c $<
 
-# Cleans only all files with the extension .d
-.PHONY: cleandep
-cleandep:
-	$(RM) $(DEP)
-
-# Cleaning rules for Windows OS
-.PHONY: cleanw
-cleanw:
-	$(DEL) $(WDELOBJ) $(DEP) $(APPNAME)$(EXE)
-
-# Cleans only all files with the extension .d
-.PHONY: cleandepw
-cleandepw:
-	$(DEL) $(DEP)
+helpers.o: src\helpers.cpp src\helpers.h 
+	g++ $(FLAGS) -c $<

@@ -31,16 +31,20 @@ Vector2i* texEnd = new Vector2i[20];
 
 // Function to ensure the user uses a compatible playing console window
 void FoolProofPlan() {
+    Init();
     Screen FoolproofPlan = Screen(82, 62);
     FoolproofPlan.Init();
-    cout << "Please make sure you can see the whole BLUE RECTANGLE and ALL of the words" << endl;
+    cout << "Please make sure you can see the whole BLUE RECTANGLE and ALL of the words\nHint: you may need to resize your font (usually Ctrl - will make the font smaller)\nPress Q to quit" << endl;
     FoolproofPlan.setBoarders(BLUE);
     FoolproofPlan.display();
     cout << "Please scroll UP" << endl;
     int width = 0;
     int height = 0;
+    int ch;
     while (width < 85 || height < 65) {
+        ch = getChar();
         SetScreenSize(width, height);
+        if (ch == K_q || ch == K_Q) {FoolproofPlan.clear();FoolproofPlan.Done();Finish();exit(1);}
     }
     FoolproofPlan.Done();
 }
@@ -69,7 +73,7 @@ void MazeRun(int& status, Maze& mz, Player& player, int ch, Screen& scr, int lev
     if (ch == K_b || ch == K_B) {status = 0;}
     if (player.solvedOrNot(mz)) {
         status = 4;
-        string strsaveText = "#!/bin/bash\necho " + to_string(levelID) + " >> completedLevels.txt\n";
+        string strsaveText = "echo " + to_string(levelID) + " >> completedLevels.txt\n";
         char* saveText = new char[strsaveText.length() + 1];
         strcpy(saveText, strsaveText.c_str());
         system(saveText);
@@ -80,8 +84,8 @@ void MazeRun(int& status, Maze& mz, Player& player, int ch, Screen& scr, int lev
 int main() {
     // Initialization, variable declarations, and game loop setup
     Init();
-    char InitText[] = "#!/bin/bash\necho -n '' >> completedLevels.txt\n";
-    system(InitText);
+    ofstream file ("completedLevels.txt");
+    file.close();
 
     // Ensures that the user uses a compatible playing console window
     FoolProofPlan();
@@ -189,7 +193,7 @@ int main() {
                         break;
                     case K_r:
                     case K_R:
-                        char ResetText[] = "#!/bin/bash\necho 0 > completedLevels.txt\n";
+                        char ResetText[] = "echo 0 > completedLevels.txt\n";
                         system(ResetText);
                         seed = 0;
                         //render img of reseted successfully
