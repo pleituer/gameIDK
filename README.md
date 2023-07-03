@@ -1,5 +1,7 @@
 # Game of Group 169 
 
+## Don't run this, theres a memory leak bug that won't be patched
+
 ## Team Meambers: 
 
 pleituer: Lui Peter Hong Zhi
